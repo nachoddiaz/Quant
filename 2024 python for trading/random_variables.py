@@ -10,14 +10,21 @@ import matplotlib.pyplot as plt
 import scipy.stats  as st #import skew, kurtosis, chi2, tmean, tstd
 
 
-class simulator():
+class sim_inputs:
+    def __init__(self):
+        self.df = None
+        self.scale = None
+        self.mean = None
+        self.std = None
+        self.size = None
+        self.random_var_type = None
+        self.decimals = None
+
+class simulator:
     
     #Constructor
-    def __init__(self, coef, rv_type, size=10**6, decimals=5):
-        self.coef = coef
-        self.random_var_type = rv_type
-        self.size = size
-        self.decimals = decimals
+    def __init__(self, inputs):
+        self.inputs = inputs
         self.x = None
         self.str_title = None
         self.is_normal = None
@@ -28,41 +35,44 @@ class simulator():
         self.jb_stat = None
         self.p_value = None
 
+
     def generate_rv(self):
-        self.str_title = self.random_var_type
-        if self.random_var_type == 'Normal': 
-            self.x = np.random.standard_normal(self.size)
-        elif self.random_var_type == 'Student t':
-            self.x = np.random.standard_t(df=self.coef, size=self.size)
-            self.str_title += ' df=' + str(self.coef)      
-        elif self.random_var_type == 'Uniform':
-            self.x = np.random.uniform(size = self.size)
-        elif self.random_var_type == 'Exponential':
-            self.x = np.random.exponential(scale=self.coef, size=self.size)
+        self.str_title = self.inputs.random_var_type
+        if self.inputs.random_var_type == 'Standard_normal': 
+            self.x = np.random.standard_normal(self.inputs.size)
+        if self.inputs.random_var_type == 'Normal': 
+            self.x = np.random.normal(self.inputs.mean, self.inputs.std, self.inputs.size)
+        elif self.inputs.random_var_type == 'Student-t':
+            self.x = np.random.standard_t(self.inputs.df, self.inputs.size)
+            self.str_title += ' df=' + str(self.inputs.df)      
+        elif self.inputs.random_var_type == 'Uniform':
+            self.x = np.random.uniform(size = self.inputs.size)
+        elif self.inputs.random_var_type == 'Exponential':
+            self.x = np.random.exponential(self.inputs.scale, self.inputs.size)
             self.str_title= 'Exponential'
-            self.str_title += ' scale=' + str(self.coef)  
-        elif self.random_var_type == 'Chi-squared':
-            self.x = np.random.chisquare(df=self.coef, size=self.size)
-            self.str_title += ' df=' + str(self.coef)
-        #return x, str_title
+            self.str_title += ' scale=' + str(self.inputs.scale)  
+        elif self.inputs.random_var_type == 'Chi-squared':
+            self.x = np.random.chisquare(df=self.inputs.df, size=self.inputs.size)
+            self.str_title += ' df=' + str(self.inputs.df)
+      
         
-    def jb_Stat(self):
+    def compute_stats(self):
         self.mean = st.tmean(self.x) 
         self.volatility = st.tstd(self.x)
         self.skewness = st.skew(self.x)
         self.kurt = st.kurtosis(self.x)
-        self.jb_stat= (self.size/6)*(self.skewness**2 + 1/4*self.kurt**2)
+        self.jb_stat= (self.inputs.size/6)*(self.skewness**2 + 1/4*self.kurt**2)
         self.p_value = 1- st.chi2.cdf(self.jb_stat, df=2)
         self.is_normal = (self.p_value > 0.05)
-        #return is_normal
+
 
     def plot (self) :
-        self.str_title += '\n' + 'Mean = ' + str(np.round(self.mean ,self.decimals)) \
-            +' | ' + 'Volatility = ' + str(np.round(self.volatility ,self.decimals)) \
-            +'\n' + 'Skewness = ' + str(np.round(self.skewness ,self.decimals)) \
-            +' | ' + 'Kurtosis = ' + str(np.round(self.kurt ,self.decimals)) \
-            +'\n' + 'JB stat = ' + str(np.round(self.jb_stat ,self.decimals)) \
-            +' | ' + 'P Value = ' + str(np.round(self.p_value ,self.decimals)) \
+        self.str_title += '\n' + 'Mean = ' + str(np.round(self.mean ,self.inputs.decimals)) \
+            +' | ' + 'Volatility = ' + str(np.round(self.volatility ,self.inputs.decimals)) \
+            +'\n' + 'Skewness = ' + str(np.round(self.skewness ,self.inputs.decimals)) \
+            +' | ' + 'Kurtosis = ' + str(np.round(self.kurt ,self.inputs.decimals)) \
+            +'\n' + 'JB stat = ' + str(np.round(self.jb_stat ,self.inputs.decimals)) \
+            +' | ' + 'P Value = ' + str(np.round(self.p_value ,self.inputs.decimals)) \
             +' \n ' + 'Is Normal = ' + str(self.is_normal)
         
         plt.figure()
