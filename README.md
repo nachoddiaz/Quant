@@ -28,7 +28,7 @@
 
   **P-values**
   
-  A p-value is the probability of an observed result assuming that the null hypothesis (no relationship exists between the two variables being studied) is true. 
+  Assuming that the distribution of the vector we have is normal, we are going to see the probability of extreme events occurring. If they are produced in large quantities, it will mean that it is not a normally distributed variable. The probability of these extreme events occurring is the p-value.
 
 It returns the probability of having extreme events
 
