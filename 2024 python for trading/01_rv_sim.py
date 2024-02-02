@@ -18,36 +18,19 @@ importlib.reload(random_variables)
 #inputs
 coef = 5 #df in student t, scale in esponential = tasa λ = 1/coef
 size=10**6 
-random_var_type = 'Normal'
+random_var_type = 'Uniform'
 #Destributions: Normal Student t Uniform Exponential Chi-squared
 decimals = 6
 
 #Constructor with only the aeguments that arent iniziatizated
 sim = random_variables.simulator(coef, random_var_type)
 
+#Generation of de random vector
 sim.generate_rv()
-x=sim.x
-str_title=sim.str_title
-
+#Generation of the Jarque-Bera Stat
 sim.jb_Stat()
-is_normal = sim.is_normal
-  
-
-
-
-str_title += '\n' + 'Mean = ' + str(np.round(mu ,decimals)) \
-    +' | ' + 'Volatility = ' + str(np.round(sigma ,decimals)) \
-    +'\n' + 'Skewness = ' + str(np.round(skewness ,decimals)) \
-    +' | ' + 'Kurtosis = ' + str(np.round(kurt ,decimals)) \
-    +'\n' + 'JB stat = ' + str(np.round(jb_stat ,decimals)) \
-    +' | ' + 'P Value = ' + str(np.round(p_value ,decimals)) \
-    +' \n ' + 'Is Normal = ' + str(is_normal)
-#plot
-#plot
-plt.figure()
-plt.hist(x, bins=100, density=True)
-plt.title(str_title)
-plt.show()
+#Ploting results
+sim.plot()
 
 
 #####################################
