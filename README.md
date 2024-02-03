@@ -10,7 +10,7 @@
   ### 2. Real Data Analysis
   #### 2.1 Sharpe Ratio
   #### 2.2 Time Series Representation
-  #### 2.3 [Normality test on assets]('https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#23-normality-test-on-all-assets')
+  #### 2.3 [Normality test on assets](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#23-normality-test-on-all-assets)
 
     
   
