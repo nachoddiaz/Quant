@@ -1,3 +1,4 @@
+# Introduction to Quant Finances with python
   ## 1. Review of Distributions and their moments
   ### 1.1 To declare random Distributions
     Normal -> x = np.random.standard_normal(size)
@@ -23,9 +24,9 @@
 
   `jb_stat= (size/6)*(skew**2 + 1/4*(kurt)**2)`
 
-  **P-values**
+  ### 1.4 P-Values
   
-  Assuming that the distribution of the vector we have is normal, we are going to see the probability of extreme events occurring. If they are produced in large quantities, it will mean that it is not a normally distributed variable. The probability of these extreme events occurring is the p-value.
+  A p-value is the probability of an observed result assuming that the null hypothesis (no relationship exists between the two variables being studied) is true. 
 
 It returns the probability of having extreme events
 
@@ -40,7 +41,66 @@ Then we calculate if the random variable passed the normality test:
 This means that we can say with 95% that it is a normal distribution.
 
     
-  
 ## Real Data Analysis
 
+### Sharpe Ratio
+
+#### **Definition**: Sharpe ratio measures the performance of an investment such as a security or portfolio compared to a risk-free asset. For each unit of risk assumed, X extra return will be earned
+
+![](https://wikimedia.org/api/rest_v1/media/math/render/svg/d54973db1901fd6f25c55d4bb88fddc75b0fe09f)
+
+We look for a Sharpe ratio of at least 2 since the confidence interval returns positive.
+
+
+### Time Series Representation
+
+    ric = 'your_ticker'
+    directory = 'your_path'
+    path = directory + ric + '.csv'
+    raw_data = pd.read_csv(path)
+    t = pd.DataFrame()
+    t['date'] = pd.to_datetime(raw_data['Date'], dayfirst=True, format='%Y-%m-%d')
+    t['close'] =raw_data['Close']
+    t.sort_values(by='date', ascending=True)
+    t['close_previous'] = t['close'].shift(1)
+    t['return close'] = t['close']/t['close_previous'] -1
+    t = t.dropna()
+    t= t.reset_index(drop=True)
+    plt.figure()
+    t.plot(kind='line', x='date', y='close', grid=True, color='blue',label=ric, title='Timeseries of close prices for '+ ric)
+    plt.show()
+
+
+### Normality test on all assets
+
+    import os
+    for file_name in os.listdir(directory):
+    print('file_name = ' + file_name)
+    #returns the first element after split
+    ric = file_name.split('.')[0]
+    #get data_frame
+    path = directory + ric + '.csv'
+    raw_data = pd.read_csv(path)
+    t = pd.DataFrame()
+    t['date'] = pd.to_datetime(raw_data['Date'], dayfirst=True, format='mixed')
+    t['close'] =raw_data['Close']
+    t.sort_values(by='date', ascending=True)
+    t['close_previous'] = t['close'].shift(1)
+    t['return close'] = t['close']/t['close_previous'] -1
+    t = t.dropna()
+    t= t.reset_index(drop=True)
+    sim = random_variables.simulator(inputs)
+    sim.x = t['return close'].values
+    sim.inputs.size = len(sim.x)
+    sim.str_title = sim.inputs.random_var_type
+    sim.compute_stats()
+    #generate lists
+    rics.append(ric)
+    is_normals.append(sim.is_normal)
+    
+    df = pd.DataFrame()
+    df['ric'] = rics
+    df['is_normal'] = is_normals
+
+##
 ##
