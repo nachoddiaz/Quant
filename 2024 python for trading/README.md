@@ -41,9 +41,9 @@ Then we calculate if the random variable passed the normality test:
 This means that we can say with 95% that it is a normal distribution.
 
     
-## Real Data Analysis
+## 2. Real Data Analysis
 
-### Sharpe Ratio
+### 2.1 Sharpe Ratio
 
 #### **Definition**: Sharpe ratio measures the performance of an investment such as a security or portfolio compared to a risk-free asset. For each unit of risk assumed, X extra return will be earned
 
@@ -52,7 +52,7 @@ This means that we can say with 95% that it is a normal distribution.
 We look for a Sharpe ratio of at least 2 since the confidence interval returns positive.
 
 
-### Time Series Representation
+### 2.2 Time Series Representation
 
     ric = 'your_ticker'
     directory = 'your_path'
@@ -71,7 +71,7 @@ We look for a Sharpe ratio of at least 2 since the confidence interval returns p
     plt.show()
 
 
-### Normality test on all assets
+### 2.3 Normality test on all assets
 
     import os
     for file_name in os.listdir(directory):
