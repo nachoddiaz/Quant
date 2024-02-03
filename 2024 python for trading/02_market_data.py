@@ -14,75 +14,43 @@ import importlib
 import os
 
 import random_variables
-importlib.reload(random_variables)
-inputs = random_variables.sim_inputs()
+import market_data
+importlib.reload(market_data)
 
 #inputs
 ric = '^MXX'
 
+#Compute
+dist = market_data.distribution_manager(ric)
+dist.load_timeseries()
+dist.plot_timeseries()
+dist.compute_stats()
+dist.plot_histogram()
+
+
 directory = 'C:\\Users\\Nacho\\.spyder-py3\\2024_python_for_trading\\2024-1-data\\'
-path = directory + ric + '.csv'
-raw_data = pd.read_csv(path)
-t = pd.DataFrame()
-t['date'] = pd.to_datetime(raw_data['Date'], dayfirst=True, format='%Y-%m-%d')
-t['close'] =raw_data['Close']
-t.sort_values(by='date', ascending=True)
-t['close_previous'] = t['close'].shift(1)
-t['return close'] = t['close']/t['close_previous'] -1
-t = t.dropna()
-t= t.reset_index(drop=True)
-
-
-inputs.random_var_type = ric + ' | real data'
-inputs.decimals = 5
-
-#Constructor with only the aeguments that arent iniziatizated
-sim = random_variables.simulator(inputs)
-
-#Generation of de random vector
-sim.x = t['return close'].values
-#Generation of the Jarque-Bera Stat
-sim.inputs.size = len(sim.x)
-sim.str_title = sim.inputs.random_var_type
-sim.compute_stats()
-#Ploting results
-sim.plot()
-
-
-plt.figure()
-t.plot(kind='line', x='date', y='close', grid=True, color='blue', \
-       label=ric, title='Timeseries of close prices for '+ ric)
-plt.show()
 
 rics = []
 is_normals = []
 for file_name in os.listdir(directory):
-    print('file_name = ' + file_name)
+    #print('file_name = ' + file_name)
     #returns the first element after split
     ric = file_name.split('.')[0]
     #get data_frame
     path = directory + ric + '.csv'
-    raw_data = pd.read_csv(path)
-    t = pd.DataFrame()
-    t['date'] = pd.to_datetime(raw_data['Date'], dayfirst=True, format='mixed')
-    t['close'] =raw_data['Close']
-    t.sort_values(by='date', ascending=True)
-    t['close_previous'] = t['close'].shift(1)
-    t['return close'] = t['close']/t['close_previous'] -1
-    t = t.dropna()
-    t= t.reset_index(drop=True)
-    sim = random_variables.simulator(inputs)
-    sim.x = t['return close'].values
-    sim.inputs.size = len(sim.x)
-    sim.str_title = sim.inputs.random_var_type
-    sim.compute_stats()
+    dist = market_data.distribution_manager(ric)
+    dist.load_timeseries()
+    #dist.plot_timeseries()
+    dist.compute_stats() 
+    #dist.plot_histogram()
     #generate lists
     rics.append(ric)
-    is_normals.append(sim.is_normal)
+    is_normals.append(dist.is_normal)
     
 df = pd.DataFrame()
 df['ric'] = rics
 df['is_normal'] = is_normals
+df.sort_values(by='is_normal', ascending = False)
 
 
 
