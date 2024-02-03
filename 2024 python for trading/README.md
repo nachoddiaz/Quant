@@ -1,15 +1,12 @@
-# Summary of all my qaunt related projects
-
-## Introduction to Quant Finances with python
-  ### 1. Review of Distributions and their moments
-  #### 1.1 To declare random Distributions
+  ## 1. Review of Distributions and their moments
+  ### 1.1 To declare random Distributions
     Normal -> x = np.random.standard_normal(size)
     Student t -> x = np.random.standard_t(df=coef, size=size)
     Uniform -> x = np.random.uniform(size = size)
     Exponential -> x = np.random.exponential(scale=coef, size=size)
     'Chi-squared' -> x = np.random.chisquare(df=coef, size=size)
- #### 1.2  Moments
- ##### **Definition**: certain quantitative measures related to the shape of the function's graph
+ ### 1.2  Moments
+ #### **Definition**: certain quantitative measures related to the shape of the function's graph
     mu = np.mean(x)
     sigma = np.std(x)
     skew = skew(x) 
@@ -19,7 +16,7 @@
     kurt = kurtosis(x) 
   kurt measures the probability of black swans / home runs or the probability 
     of falling into queues
-  #### 1.3. Jarque-Bera Test
+  ### 1.3. Jarque-Bera Test
   ![](https://wikimedia.org/api/rest_v1/media/math/render/svg/d4e5e1b491ad57619afa0771f9d30b651a95bb15)
 
   where n is the number of observations and S & K are the skewness and kurtosis as described above 
@@ -44,5 +41,6 @@ This means that we can say with 95% that it is a normal distribution.
 
     
   
-##
+## Real Data Analysis
+
 ##
