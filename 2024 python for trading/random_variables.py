@@ -61,6 +61,7 @@ class simulator:
         self.volatility = st.tstd(self.x)
         self.skewness = st.skew(self.x)
         self.kurt = st.kurtosis(self.x)
+        self.sharpe = (self.mean-(0.02**(1/365))-1)/self.volatility
         self.jb_stat= (self.inputs.size/6)*(self.skewness**2 + 1/4*self.kurt**2)
         self.p_value = 1- st.chi2.cdf(self.jb_stat, df=2)
         self.is_normal = (self.p_value > 0.05)
@@ -73,7 +74,9 @@ class simulator:
             +' | ' + 'Kurtosis = ' + str(np.round(self.kurt ,self.inputs.decimals)) \
             +'\n' + 'JB stat = ' + str(np.round(self.jb_stat ,self.inputs.decimals)) \
             +' | ' + 'P Value = ' + str(np.round(self.p_value ,self.inputs.decimals)) \
-            +' \n ' + 'Is Normal = ' + str(self.is_normal)
+            +' \n ' + 'Is Normal = ' + str(self.is_normal) \
+            +' | ' + 'Sharpe Ratio = ' + str(np.round(self.sharpe ,self.inputs.decimals)) \
+
         
         plt.figure()
         plt.hist(self.x, bins=100) #density=True
