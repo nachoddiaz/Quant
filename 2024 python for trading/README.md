@@ -112,5 +112,7 @@ We look for a Sharpe ratio of at least 2 since the confidence interval returns p
   <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/a7a9338ad7ab25257903853f42e33a740dd47728" alt="texto_alternativo" width="80" style="vertical-align:middle; margin:0px 10px">
 is the <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/1dcc25f05dca60e358d4d22e8342fad5ad7affbb" alt="texto_alternativo" width="70" style="vertical-align:middle; margin:0px 10px">-quantile of  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/961d67d6b454b4df2301ac571808a3538b3a6d3f" alt="texto_alternativo" width="15" style="vertical-align:middle; margin:0px 10px"> ()
 </p>
+
+In the (1-alpha)% of the cases, my return will be greater than the VaR returned
 ##
 ##
