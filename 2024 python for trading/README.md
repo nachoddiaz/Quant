@@ -125,7 +125,10 @@ We employ an alpha level of 5% to identify the worst trading day within a month,
 
 ![](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/img/CAPM_as_linear_regression.png) 
 
-Where R is the total return, alpha is the absolute return (return that cant be explained by the market), beta is the systematic risk (exposure of R to the market + cant be diversified away) and epsylon is the idiosyncratic risk (can be eliminated via diversification)
+Where R is the total return
+Alpha is the absolute return (return that cant be explained by the market)
+Beta is the systematic risk (exposure of R to the market + cant be diversified away). If its greater than 1, 
+Epsylon is the idiosyncratic risk (can be eliminated via diversification)
 
 
 ##
