@@ -121,6 +121,8 @@ We employ an alpha level of 5% to identify the worst trading day within a month,
 
 ## 3. Capital Asset Pricing Model
 
+## 3.1 Introduction
+
 #### **Definition**:The model takes into account the asset's sensitivity to non-diversifiable risk, often represented by the quantity beta (β) in the financial industry, as well as the expected return of the market and the expected return of a theoretical risk-free asset. Also can be defined as a linear regression of asset Alpha respect to the market M
 
 ![](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/img/CAPM_as_linear_regression.png) 
@@ -128,7 +130,7 @@ We employ an alpha level of 5% to identify the worst trading day within a month,
 Where R is the total return <br>
 Alpha (α) is the absolute return (return that cant be explained by the market)<br>
 Beta (β) is the systematic risk (exposure of R to the market + cant be diversified away). If Beta surpasses 1, the asset is considered aggressive. If the value is exactly 1, the asset is deemed neutral. Should the value fall below 1, it is categorized as a defensive asset. <br>
-Epsylon is the idiosyncratic risk (can be eliminated via diversification)<br>
+Epsylon (ε) is the idiosyncratic risk (can be eliminated via diversification)<br>
 
 #### Efficient Market Theory: The efficient-market hypothesis (EMH) is a hypothesis in financial economics that states that asset prices reflect all available information. A direct implication is that it is impossible to "beat the market" consistently on a risk-adjusted basis since market prices should only react to new information. Therefore alpha is necessarily zero
 
@@ -138,10 +140,41 @@ Taking Expectations
 
 E[R] = β* E[R<sub>M</sub>]     
 
+<img src="https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/img/Beta_%20as_VAdjCorrelation.png" alt="texto_alternativo" width="300" style="vertical-align:middle; margin:0px 10px">
 
-Therefore β is 
+Where ρ(r<sub>a</sub>, r<sub>M</sub>) is the correlation between our portfolio and the market<br>
+σ<sub>a</sub> and σ<sub>M</sub> are the volatility of our portfolio and the market respectively
 
-α (alfa), β (beta)
+Therefore β is a volatility-adjusted correlation
+
+
+
+## 3.2 Classification of investment strategies
+
+### A. Index tracker
+
+It replicate the performance of a benchmark (Index, commodity...)<br>
+β=1, α=0
+
+### B. Traditional long-only asset manager: 
+
+Outperform the market with an extra, uncorrelated return<br>
+β=1, α>0
+
+### C. Smart beta:
+Outperform the market by dynamically adjusting your portfolio weights<br>
+β > 1 when the market is up<br>
+β < 1 when the market is down<br>
+α = 0<br>
+
+### D. Hedge Fund
+Deliver absolute returns that are not correlated with the market<br>
+β=0, α>0
+
+<img src="[https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/img/Beta_%20as_VAdjCorrelation.png](https://github.com/nachoddiaz/Quant/assets/100040420/42e75ff4-a7ca-4187-b69d-f16386842d12)" alt="texto_alternativo" width="300" style="vertical-align:middle; margin:0px 10px">
+![Captura de pantalla 2024-02-04 182024](https://github.com/nachoddiaz/Quant/assets/100040420/42e75ff4-a7ca-4187-b69d-f16386842d12)
+
+
 
 
 
