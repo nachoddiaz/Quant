@@ -11,6 +11,7 @@
   #### 2.1 [Sharpe Ratio](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#21-sharpe-ratio)
   #### 2.2 [Time Series Representation](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#22-time-series-representation)
   #### 2.3 [Normality test on assets](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#23-normality-test-on-all-assets)
+  #### 2.4 [Value at Risk](https://github.com/nachoddiaz/Quant/tree/main/2024%20python%20for%20trading#24-value-at-risk)
 
     
   
