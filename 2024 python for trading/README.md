@@ -125,10 +125,24 @@ We employ an alpha level of 5% to identify the worst trading day within a month,
 
 ![](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/img/CAPM_as_linear_regression.png) 
 
-Where R is the total return
-Alpha is the absolute return (return that cant be explained by the market)
-Beta is the systematic risk (exposure of R to the market + cant be diversified away). If its greater than 1, 
-Epsylon is the idiosyncratic risk (can be eliminated via diversification)
+Where R is the total return <br>
+Alpha (α) is the absolute return (return that cant be explained by the market)<br>
+Beta (β) is the systematic risk (exposure of R to the market + cant be diversified away). If Beta surpasses 1, the asset is considered aggressive. If the value is exactly 1, the asset is deemed neutral. Should the value fall below 1, it is categorized as a defensive asset. <br>
+Epsylon is the idiosyncratic risk (can be eliminated via diversification)<br>
+
+#### Efficient Market Theory: The efficient-market hypothesis (EMH) is a hypothesis in financial economics that states that asset prices reflect all available information. A direct implication is that it is impossible to "beat the market" consistently on a risk-adjusted basis since market prices should only react to new information. Therefore alpha is necessarily zero
+
+R = β*R<sub>M</sub> + ε
+
+Taking Expectations 
+
+E[R] = β* E[R<sub>M</sub>]     
+
+
+Therefore β is 
+
+α (alfa), β (beta)
+
 
 
 ##
