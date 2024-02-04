@@ -114,5 +114,7 @@ is the <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/1dcc25f
 </p>
 
 In the (1-alpha)% of the cases, my return will be greater than the VaR returned
+
+We employ an alpha level of 5% to identify the worst trading day within a month, considering that there are approximately 252 tradable days in a calendar year. This calculation leads to an average of 21 tradable days per month. Consequently, the application of this alpha level enables us to ascertain that the worst trading day falls within the lowest 5% of all trading days in a given month.
 ##
 ##
