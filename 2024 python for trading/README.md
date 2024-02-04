@@ -116,5 +116,34 @@ is the <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/1dcc25f
 In the (1-alpha)% of the cases, my return will be greater than the VaR returned
 
 We employ an alpha level of 5% to identify the worst trading day within a month, considering that there are approximately 252 tradable days in a calendar year. This calculation leads to an average of 21 tradable days per month. Consequently, the application of this alpha level enables us to ascertain that the worst trading day falls within the lowest 5% of all trading days in a given month.
+
+
+
+## 3. Capital Asset Pricing Model
+
+#### **Definition**:The model takes into account the asset's sensitivity to non-diversifiable risk, often represented by the quantity beta (β) in the financial industry, as well as the expected return of the market and the expected return of a theoretical risk-free asset. Also can be defined as a linear regression of asset Alpha respect to the market M
+
+![](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/img/CAPM_as_linear_regression.png) 
+
+Where R is the total return <br>
+Alpha (α) is the absolute return (return that cant be explained by the market)<br>
+Beta (β) is the systematic risk (exposure of R to the market + cant be diversified away). If Beta surpasses 1, the asset is considered aggressive. If the value is exactly 1, the asset is deemed neutral. Should the value fall below 1, it is categorized as a defensive asset. <br>
+Epsylon is the idiosyncratic risk (can be eliminated via diversification)<br>
+
+#### Efficient Market Theory: The efficient-market hypothesis (EMH) is a hypothesis in financial economics that states that asset prices reflect all available information. A direct implication is that it is impossible to "beat the market" consistently on a risk-adjusted basis since market prices should only react to new information. Therefore alpha is necessarily zero
+
+R = β*R<sub>M</sub> + ε
+
+Taking Expectations 
+
+E[R] = β* E[R<sub>M</sub>]     
+
+
+Therefore β is 
+
+α (alfa), β (beta)
+
+
+
 ##
 ##
