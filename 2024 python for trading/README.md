@@ -171,10 +171,7 @@ Outperform the market by dynamically adjusting your portfolio weights<br>
 Deliver absolute returns that are not correlated with the market<br>
 β=0, α>0
 
-<img src="[https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/img/Beta_%20as_VAdjCorrelation.png](https://github.com/nachoddiaz/Quant/assets/100040420/42e75ff4-a7ca-4187-b69d-f16386842d12)" alt="texto_alternativo" width="300" style="vertical-align:middle; margin:0px 10px">
-![Captura de pantalla 2024-02-04 182024](https://github.com/nachoddiaz/Quant/assets/100040420/42e75ff4-a7ca-4187-b69d-f16386842d12)
-
-
+<img src="https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/img/Inversion_models.png" alt="texto_alternativo" width="500" style="horizontal-align:middle;vertical-align:middle; margin:0px 10px">
 
 
 
