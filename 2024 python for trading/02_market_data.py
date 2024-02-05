@@ -13,12 +13,11 @@ import scipy.stats  as st #import skew, kurtosis, chi2, tmean, tstd
 import importlib
 import os
 
-import random_variables
 import market_data
 importlib.reload(market_data)
 
 #inputs
-ric = '^MXX'
+ric = '^SPX'
 
 #Compute
 dist = market_data.distribution_manager(ric)

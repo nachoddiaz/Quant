@@ -19,7 +19,7 @@ def load_timeseries(ric):
     t['close'] =raw_data['Close']
     t= t.sort_values(by='date', ascending=True)
     t['close_previous'] = t['close'].shift(1)
-    t['return close'] = t['close']/t['close_previous'] -1
+    t['return'] = t['close']/t['close_previous'] -1
     t = t.dropna()
     t= t.reset_index(drop=True)
     return t
@@ -47,7 +47,7 @@ class distribution_manager:
 
     def load_timeseries(self):
         self.timeSeries = load_timeseries(self.ric)
-        self.x = self.timeSeries['return close'].values
+        self.x = self.timeSeries['return'].values
         self.size = len(self.x)
         self.str_title = self.ric + " | real data"
         
