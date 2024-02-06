@@ -21,5 +21,9 @@ security = 'BTC-USD'    #y
 
 timeseries_x = market_data.load_timeseries(security)
 timeseries_y = market_data.load_timeseries(benchmark) 
-timestamp_x = timeseries_x['date'].values
-timestamp_y = timeseries_y['date'].values
+timestamp_x = list(timeseries_x['date'].values)
+timestamp_y = list(timeseries_y['date'].values)
+
+
+
+
