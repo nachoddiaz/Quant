@@ -16,8 +16,8 @@ import os
 import market_data
 importlib.reload(market_data)
 
-benchmark = '^MXX'      #x
-security = 'EWW'    #y
+benchmark = '^SPX'      #x
+security = 'SPY'    #y
 
 #def sync_timeseries (security, benchmark):
 
@@ -46,6 +46,7 @@ timeseries['close_y'] = timeseries_y['close']
 timeseries['return_x'] = timeseries_x['return']
 timeseries['return_y'] = timeseries_y['return']
 
+
 #plot timeseries
 plt.figure(figsize=(12,5))
 plt.title('time series of close prices')
@@ -60,6 +61,33 @@ ax1.legend(loc=2)
 ax2.legend(loc=1)
 plt.show()
 
-#timeseries_x
-#timeseries_y
+
+#linear_regression
+#Vector x = Rm, Vector y = Ra
+x=timeseries['close_x'].values
+y=timeseries['close_y'].values
+beta, alpha, r, p_value, std_err = st.linregress(x, y=y, alternative='two-sided')
+corr = r
+
+
+
+line = beta * x + alpha
+
+# Visualizar los datos y la línea de regresión
+plt.scatter(x, y, color='blue', label='Datos')
+plt.plot(x, line, color='red', label='Línea de regresión')
+plt.legend()
+plt.xlabel('X')
+plt.ylabel('y')
+plt.title = 'Beta = ' + str(np.round(beta), 5) \
+     +' | ' + 'Alpha = ' + str(np.round(alpha), 5) \
+     +'\n' + 'R = ' + str(np.round(r), 5) \
+     +' | ' + 'R^2 = ' + str(np.round(r**2), 5)
+plt.show()
+
+
+
+
+
+
 
