@@ -186,6 +186,9 @@ Where beta and alpha are as previously defined, x represents the vector of closi
 
 We define $R^2$, pronounced as "R squared", as the coefficient of determination. It signifies the proportion of the variation in the dependent variable that can be predicted from the independent variable(s). Also can be defined as the part of R<sub>a</sub> that can be explained by α + β*R<sub>M</sub>
 
+Also we calculate the null hypothesis through the p_values: 
+`null_hyp = p_value > 0.05`
+to know if the asset is orthogonal to the market and consequently, its covariance matrix equals zero, resulting in a beta value of zero. This eliminates systematic risk, thereby enhancing the diversification of the investment portfolio.
 
 
 ##
