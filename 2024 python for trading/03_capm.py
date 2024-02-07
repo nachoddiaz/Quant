@@ -16,6 +16,8 @@ import os
 import market_data
 importlib.reload(market_data)
 
+decimals = 5
+
 benchmark = '^SPX'      #x
 security = 'SPY'    #y
 
@@ -62,27 +64,37 @@ ax2.legend(loc=1)
 plt.show()
 
 
-#linear_regression
+#Compute Linear Regression
 #Vector x = Rm, Vector y = Ra
 x=timeseries['close_x'].values
 y=timeseries['close_y'].values
-beta, alpha, r, p_value, std_err = st.linregress(x, y=y, alternative='two-sided')
-corr = r
-
-
-
+beta, alpha, r_value, p_value, std_err = st.linregress(x, y=y, alternative='two-sided')
+corr = np.round(r_value,decimals)
+rsquared = np.round(r_value**2,decimals)
+alpha = np.round(alpha, decimals)
+beta = np.round(beta, decimals)
+p_value = np.round(p_value, decimals)
+null_hyp = p_value > 0.05
+std_err = np.round(std_err, decimals)
 line = beta * x + alpha
 
-# Visualizar los datos y la línea de regresión
-plt.scatter(x, y, color='blue', label='Datos')
-plt.plot(x, line, color='red', label='Línea de regresión')
-plt.legend()
-plt.xlabel('X')
-plt.ylabel('y')
-plt.title = 'Beta = ' + str(np.round(beta), 5) \
-     +' | ' + 'Alpha = ' + str(np.round(alpha), 5) \
-     +'\n' + 'R = ' + str(np.round(r), 5) \
-     +' | ' + 'R^2 = ' + str(np.round(r**2), 5)
+# Plot Linear Regression
+str_self = 'Linear regression | security ' + security\
+    + ' | benchmark ' + benchmark + '\n'\
+    + 'alpha (intercept) ' + str(alpha)\
+    + ' | beta (slope) ' + str(beta) + '\n'\
+    + 'p-value ' + str(p_value)\
+    + ' | null hypothesis ' + str(null_hyp) + '\n'\
+    + 'correl (r-value) ' + str(corr)\
+    + ' | r-squared ' + str(rsquared)
+str_title = 'Scatterplot of returns' + '\n' + str(str_self)
+plt.figure()
+plt.title(str_title)
+plt.scatter(x,y)
+plt.plot(x, line, color='red')
+plt.ylabel(security)
+plt.xlabel(benchmark)
+plt.grid()
 plt.show()
 
 
