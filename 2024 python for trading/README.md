@@ -171,7 +171,20 @@ Outperform the market by dynamically adjusting your portfolio weights<br>
 Deliver absolute returns that are not correlated with the market<br>
 β=0, α>0
 
-<img src="https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/img/Inversion_models.png" alt="texto_alternativo" width="500" style="horizontal-align:middle;vertical-align:middle; margin:0px 10px">
+<img src="https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/img/Inversion_models.png" alt="texto_alternativo" width="500" style="horizontal-align:middle;vertical-align:middle; margin:0px 10px"><br>
+
+
+## 3.3 Linear Regression
+
+#### **Definition**: Given a data set ![](https://wikimedia.org/api/rest_v1/media/math/render/svg/bb65235f66e69d8c663b673c5952ee7a64e9246d)   of n statistical units, a linear regression model assumes that the relationship between the dependent variable y and the vector of regressors x is linear.<br>
+This relationship is modeled through a disturbance term or error variable ε — an unobserved random variable that adds "noise" to the linear relationship between the dependent variable and regressors. Thus the model takes the form.<br>
+
+
+Using the scipy.stats library, our code looks like this: <br> `beta, alpha, r, p_value, std_err = st.linregress(x, y=y, alternative='two-sided')`
+
+Where beta and alpha are as previously defined, x represents the vector of closing prices for the benchmark asset, whereas y denotes the corresponding vector for the security asset. Meanwhile, r represents the correlation between x and y. <br>
+
+We define $R^2$, pronounced as "R squared", as the coefficient of determination. It signifies the proportion of the variation in the dependent variable that can be predicted from the independent variable(s). Also can be defined as the part of R<sub>a</sub> that can be explained by α + β*R<sub>M</sub>
 
 
 
