@@ -16,6 +16,7 @@
   ### 3. Capital Asset Pricing Model
   #### 3.1 [Introduction](https://github.com/nachoddiaz/Quant/tree/main/2024%20python%20for%20trading#31-introduction)
   #### 3.2 [Classification of investment strategies](https://github.com/nachoddiaz/Quant/tree/main/2024%20python%20for%20trading#32-classification-of-investment-strategies)
+  #### 3.3 [Linear Regression](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#33-linear-regression)
 
     
   
