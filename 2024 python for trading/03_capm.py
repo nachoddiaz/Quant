@@ -14,13 +14,16 @@ import importlib
 import os
 
 
-benchmark = 'USDT-USD'      #x
-security = 'DAI-USD'    #y
+benchmark = 'AAPL'      #x
+security = 'V'    #y
 
-import capm
-importlib.reload(capm)
+# import capm
+# importlib.reload(capm)
 
-capm = capm.capm(benchmark, security)
+import market_data
+importlib.reload(market_data)
+
+capm = market_data.capm(benchmark, security)
 capm.sync_timeseries()
 capm.plot_timeseries()
 capm.compute_linear_regression()

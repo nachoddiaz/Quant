@@ -18,7 +18,7 @@ importlib.reload(market_data)
 
 class capm:
     
-    def __init__(self, benchmark, security, decimals = 5):
+    def __init__(self, benchmark, security, decimals = 4):
         self.benchmark = benchmark
         self.security = security
         self.decimals = decimals
