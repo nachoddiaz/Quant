@@ -191,5 +191,16 @@ Also we calculate the null hypothesis through the p_values:
 to know if the asset is orthogonal to the market and consequently, its covariance matrix equals zero, resulting in a beta value of zero. This eliminates systematic risk, thereby enhancing the diversification of the investment portfolio.
 
 
-##
-##
+## 4. Hedging
+### 4.1 Beta Neutral Vs Delta Neutral
+  We start from defining S<sub>0</sub> as the vlaue of a given security in USD
+  #### Hedge with one Security
+Delta neutral: Finding S<sub>1</sub> such as S<sub>0</sub> + S<sub>1</sub> = 0<br>
+Beta neutral: Finding S<sub>1</sub> such as β<sub>0</sub>*S<sub>0</sub> + β<sub>1</sub>*S<sub>1</sub> = 0
+  #### Hedge with N Security
+Delta neutral: Finding S<sub>1</sub>,...,S<sub>N</sub> such as S<sub>0</sub> + ΣS<sub>n</sub> = 0<br>
+Beta neutral: Finding S<sub>1</sub> such as β<sub>0</sub>S<sub>0</sub> + Σβ<sub>n</sub>S<sub>n</sub> = 0
+
+
+
+
