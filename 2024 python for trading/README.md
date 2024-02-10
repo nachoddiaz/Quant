@@ -251,7 +251,14 @@ Beta neutral: Find S<sub>1</sub>,...,S<sub>N</sub> such as β<sub>0</sub>S<sub>0
         mtx = np.transpose(np.column_stack((deltas, self.hedge_betas)))          
         self.hedge_weights = np.linalg.solve(mtx,target)
 
-Utilizing this method enables us to hedge our principal security exclusively with two additional assets.      
+Utilizing this method enables us to hedge our principal security exclusively with two additional assets.     
+
+
+#### Generalizing the coverage model
+
+The present model necessitates a substantial financial outlay to address a relatively minor sum (i.e., $660 M significantly exceeds $10 M). Consequently, we are prepared to compromise on our beta value (value inside the other two) to obtain coverage at a reduced cost.
+
+Following the last example, if someone give us X amount of NVDA, we want a way to make hedge_weights always positive.
   
   
 
