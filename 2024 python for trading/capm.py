@@ -16,7 +16,7 @@ import os
 import market_data
 importlib.reload(market_data)
 
-def betas (benchmark, security):
+def compute_betas (benchmark, security):
     m = model(benchmark, security)
     m.sync_timeseries()
     m.compute_linear_regression()
@@ -27,7 +27,7 @@ def betas (benchmark, security):
 
 class model:
     
-    def __init__(self, benchmark, security, decimals = 4):
+    def __init__(self, benchmark, security, decimals = 6):
         self.benchmark = benchmark
         self.security = security
         self.decimals = decimals
@@ -127,23 +127,39 @@ class model:
         
 class hedger:
     
-    def __init__ (self, position_ric, position_delta_usd, hedge_rics, benchmark):
-        self.position_ric= position_ric
+    def __init__ (self, position_security, position_delta_usd, hedge_securities, benchmark):
+        self.position_security= position_security
         self.position_delta_usd = position_delta_usd
-        self.hedge_rics = hedge_rics
+        self.hedge_securities = hedge_securities
         self.benchmark = benchmark
         self.position_beta = None
         self.position_beta_usd = None
         self.hedge_betas = []
+        self.hedge_weights = []
+        self.hedge_delta = None
+        self.hedge_beta_usd = None
         
     def compute_betas(self):
-        self.position_beta = betas(self.benchmark, self.position_ric)
+        self.position_beta = compute_betas(self.benchmark, self.position_security)
         self.position_beta_usd = self.position_beta * self.position_delta_usd
-        for security in self.hedge_rics:
-            beta = betas(self.benchmark, security)
+        for security in self.hedge_securities:
+            beta = compute_betas(self.benchmark, security)
             self.hedge_betas.append(beta)
-        #self.hedger_betas_usd = self.hedger_betas
-        
+    
+    def compute_optimal_hedge(self):
+        dimensions = len(self.hedge_securities)
+        if dimensions != 2:
+            print('Cannot compute the exact solution cause dimensions = ' + str(dimensions))
+            return
+        deltas = np.ones([dimensions])
+        target = -np.array([self.position_delta_usd, self.position_beta_usd]) 
+        #First we put the 2 arrays as columns and then into rows
+        mtx = np.transpose(np.column_stack((deltas, self.hedge_betas)))          
+        self.hedge_weights = np.linalg.solve(mtx,target)
+        #Those are tests
+        self.hedge_delta = np.sum(self.hedge_weights)
+        self.hedge_beta_usd = np.transpose(self.hedge_betas).dot(self.hedge_weights).item()
+
              
         
         
