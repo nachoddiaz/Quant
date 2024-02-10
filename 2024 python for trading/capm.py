@@ -16,6 +16,15 @@ import os
 import market_data
 importlib.reload(market_data)
 
+def betas (benchmark, security):
+    m = model(benchmark, security)
+    m.sync_timeseries()
+    m.compute_linear_regression()
+    return m.beta
+
+     
+
+
 class model:
     
     def __init__(self, benchmark, security, decimals = 4):
@@ -118,9 +127,24 @@ class model:
         
 class hedger:
     
-    def __init__ (self):
+    def __init__ (self, position_ric, position_delta_usd, hedge_rics, benchmark):
+        self.position_ric= position_ric
+        self.position_delta_usd = position_delta_usd
+        self.hedge_rics = hedge_rics
+        self.benchmark = benchmark
+        self.position_beta = None
+        self.position_beta_usd = None
+        self.hedge_betas = []
         
+    def compute_betas(self):
+        self.position_beta = betas(self.benchmark, self.position_ric)
+        self.position_beta_usd = self.position_beta * self.position_delta_usd
+        for security in self.hedge_rics:
+            beta = betas(self.benchmark, security)
+            self.hedge_betas.append(beta)
+        #self.hedger_betas_usd = self.hedger_betas
         
+             
         
         
 

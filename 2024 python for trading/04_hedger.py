@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Feb  4 18:36:17 2024
+Created on Sat Feb 10 16:30:35 2024
 
 @author: Nacho
 """
@@ -16,18 +16,12 @@ import os
 import capm
 importlib.reload(capm)
 
-benchmark = '^SPX'      #x
-security = 'NVDA'    #y
 
-model = capm.model(benchmark, security)
-model.sync_timeseries()
-model.plot_timeseries()
-model.compute_linear_regression()
-model.plot_linear_regression()
+#inputs
+benchmark = '^SPX'
+position_ric = 'NVDA'
+position_delta_usd = 10 # in M USDC
+hedge_rics = ['AAPL','MSFT']
 
-
-
-
-
-
-
+hedger = capm.hedger(position_ric, position_delta_usd, hedge_rics, benchmark)
+hedger.compute_betas()
