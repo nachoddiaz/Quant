@@ -202,7 +202,27 @@ Delta neutral: Find S<sub>1</sub>,...,S<sub>N</sub> such as S<sub>0</sub> + ΣS<
 Beta neutral: Find S<sub>1</sub>,...,S<sub>N</sub> such as β<sub>0</sub>S<sub>0</sub> + Σβ<sub>n</sub>S<sub>n</sub> = 0
 
   #### Beta and Delta Neutral Hyperplanes
-  We define Delta-neutral hyperplane in R<sup>N</sup> as L<sub>delta</sub> =  {S<sub>0</sub> + ΣS<sub>n</sub> = 0} and Beta-neutral hyperplane in <sup>N</sup> as L<sub>beta</sub> = {β<sub>0</sub>S<sub>0</sub> + Σβ<sub>n</sub>S<sub>n</sub> = 0} thus, the optimal solution would be to achieve a scenario in which our portfolio simultaneously attains Delta neutrality and Beta neutrality: P<sub>ideal</sub> = L<sub>delta</sub> ∩ L<sub>beta</sub> that is a hyperplane of dimension N-2.
+  We define Delta-neutral hyperplane in R<sup>N</sup> as L<sub>delta</sub> =  {S<sub>0</sub> + ΣS<sub>n</sub> = 0} and Beta-neutral hyperplane in R<sup>N</sup> as L<sub>beta</sub> = {β<sub>0</sub>S<sub>0</sub> + Σβ<sub>n</sub>S<sub>n</sub> = 0} thus, the optimal solution would be to achieve a scenario in which our portfolio simultaneously attains Delta neutrality and Beta neutrality: P<sub>ideal</sub> = L<sub>delta</sub> ∩ L<sub>beta</sub> that is a hyperplane of dimension N-2.
+
+  #### Example with NVDA, AAPL and MSFT
+  Our goal is to achieve both a delta and beta neutral portfolio starting from a 10M long position in NVDA.<br>
+  β<sub>NVDA</sub> = 2.1813 <br>
+  β<sub>AAPL</sub> = 1.2895 <br>
+  β<sub>MSFT</sub> = 1.2621 <br>
+
+ β<sub>NVDA</sub> > β<sub>AAPL</sub> > β<sub>MSFT</sub>
+
+  L<sub>delta</sub> = {S<sub>NVDA</sub> + S<sub>AAPL</sub> + S<sub>MSFT</sub> = 0} <br>
+  
+  L<sub>beta</sub> = {β<sub>NVDA</sub>S<sub>NVDA</sub> + β<sub>AAPL</sub>S<sub>AAPL</sub> + β<sub>MSFT</sub>S<sub>MSFT</sub> = 0}
+
+  P<sub>ideal</sub> = L<sub>delta</sub> ∩ L<sub>beta</sub>
+
+  S<sub>AAPL</sub> < 0   &  S<sub>AAPL</sub> > 0
+
+  
+  
+  
 
 
 
