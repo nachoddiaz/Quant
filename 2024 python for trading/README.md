@@ -195,11 +195,21 @@ to know if the asset is orthogonal to the market and consequently, its covarianc
 ### 4.1 Beta Neutral Vs Delta Neutral
   We start from defining S<sub>0</sub> as the vlaue of a given security in USD
   #### Hedge with one Security
-Delta neutral: Finding S<sub>1</sub> such as S<sub>0</sub> + S<sub>1</sub> = 0<br>
-Beta neutral: Finding S<sub>1</sub> such as β<sub>0</sub>*S<sub>0</sub> + β<sub>1</sub>*S<sub>1</sub> = 0
+Delta neutral: Find S<sub>1</sub> such as S<sub>0</sub> + S<sub>1</sub> = 0<br>
+Beta neutral: Find S<sub>1</sub> such as β<sub>0</sub>*S<sub>0</sub> + β<sub>1</sub>*S<sub>1</sub> = 0
   #### Hedge with N Security
-Delta neutral: Finding S<sub>1</sub>,...,S<sub>N</sub> such as S<sub>0</sub> + ΣS<sub>n</sub> = 0<br>
-Beta neutral: Finding S<sub>1</sub> such as β<sub>0</sub>S<sub>0</sub> + Σβ<sub>n</sub>S<sub>n</sub> = 0
+Delta neutral: Find S<sub>1</sub>,...,S<sub>N</sub> such as S<sub>0</sub> + ΣS<sub>n</sub> = 0<br>
+Beta neutral: Find S<sub>1</sub>,...,S<sub>N</sub> such as β<sub>0</sub>S<sub>0</sub> + Σβ<sub>n</sub>S<sub>n</sub> = 0
+
+  #### Beta and Delta Neutral Hyperplanes
+  We define Delta-neutral hyperplane in R<sup>N</sup> as L<sub>delta</sub> =  {S<sub>0</sub> + ΣS<sub>n</sub> = 0} and Beta-neutral hyperplane in <sup>N</sup> as L<sub>beta</sub> = {β<sub>0</sub>S<sub>0</sub> + Σβ<sub>n</sub>S<sub>n</sub> = 0} thus, the optimal solution would be to achieve a scenario in which our portfolio simultaneously attains Delta neutrality and Beta neutrality: P<sub>ideal</sub> = L<sub>delta</sub> ∩ L<sub>beta</sub> that is a hyperplane of dimension N-2.
+
+
+
+
+
+
+  
 
 
 
