@@ -205,6 +205,7 @@ Beta neutral: Find S<sub>1</sub>,...,S<sub>N</sub> such as β<sub>0</sub>S<sub>0
   We define Delta-neutral hyperplane in R<sup>N</sup> as L<sub>delta</sub> =  {S<sub>0</sub> + ΣS<sub>n</sub> = 0} and Beta-neutral hyperplane in R<sup>N</sup> as L<sub>beta</sub> = {β<sub>0</sub>S<sub>0</sub> + Σβ<sub>n</sub>S<sub>n</sub> = 0} thus, the optimal solution would be to achieve a scenario in which our portfolio simultaneously attains Delta neutrality and Beta neutrality: P<sub>ideal</sub> = L<sub>delta</sub> ∩ L<sub>beta</sub> that is a hyperplane of dimension N-2.
 
   #### Example with NVDA, AAPL and MSFT
+  **Theoretical explanation**<br>
   Our goal is to achieve both a delta and beta neutral portfolio starting from a 10M long position in NVDA.<br>
   β<sub>NVDA</sub> = 2.1813 <br>
   β<sub>AAPL</sub> = 1.2895 <br>
@@ -220,7 +221,37 @@ Beta neutral: Find S<sub>1</sub>,...,S<sub>N</sub> such as β<sub>0</sub>S<sub>0
 
   S<sub>AAPL</sub> < 0   &  S<sub>AAPL</sub> > 0
 
+  **Implementation**<br>
+
+  First we need to compute the betas of NVDA, AAPL and MSFT regarding benchamrk: <br>
   
+    def betas(benchmark, security):
+      m = model(benchmark, security)
+      m.sync_timeseries()
+      m.compute_linear_regression()
+      return m.beta  
+      
+    def compute_betas(self):
+        self.position_beta = betas(self.benchmark, self.position_ric)
+        self.position_beta_usd = self.position_beta * self.position_delta_usd
+        for security in self.hedge_securities:
+            beta = betas(self.benchmark, security)
+            self.hedge_betas.append(beta)
+            
+  And then we need to calclate the weights of AAPL and MSFT
+
+     def compute_optimal_hedge(self):
+        dimensions = len(self.hedge_securities)
+        if dimensions != 2:
+            print('Cannot compute the exact solution cause dimensions = ' + str(dimensions))
+            return
+        deltas = np.ones([dimensions])
+        target = -np.array([self.position_delta_usd, self.position_beta_usd]) 
+        #First we put the 2 arrays as columns and then into rows
+        mtx = np.transpose(np.column_stack((deltas, self.hedge_betas)))          
+        self.hedge_weights = np.linalg.solve(mtx,target)
+
+Utilizing this method enables us to hedge our principal security exclusively with two additional assets.      
   
   
 
