@@ -16,7 +16,7 @@ import os
 import market_data
 importlib.reload(market_data)
 
-class capm:
+class model:
     
     def __init__(self, benchmark, security, decimals = 4):
         self.benchmark = benchmark
@@ -114,6 +114,15 @@ class capm:
         plt.xlabel(self.benchmark)
         plt.grid()
         plt.show()
+        
+        
+class hedger:
+    
+    def __init__ (self):
+        
+        
+        
+        
 
         
         

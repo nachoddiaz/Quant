@@ -14,16 +14,16 @@ import importlib
 import os
 
 
-benchmark = 'AAPL'      #x
-security = 'V'    #y
+benchmark = 'NVDA'      #x
+security = 'NFLX'    #y
 
 # import capm
 # importlib.reload(capm)
 
-import market_data
-importlib.reload(market_data)
+import capm
+importlib.reload(capm)
 
-capm = market_data.capm(benchmark, security)
+capm = capm.model(benchmark, security)
 capm.sync_timeseries()
 capm.plot_timeseries()
 capm.compute_linear_regression()
