@@ -17,7 +17,7 @@ import capm
 importlib.reload(capm)
 
 benchmark = '^SPX'      #x
-security = 'NVDA'    #y
+security = 'AAPL'    #y
 
 model = capm.model(benchmark, security)
 model.sync_timeseries()
