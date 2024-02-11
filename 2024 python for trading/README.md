@@ -264,6 +264,8 @@ Utilizing this method enables us to hedge our principal security exclusively wit
 
 The present model necessitates a substantial financial outlay to address a relatively minor sum (i.e., $660 M significantly exceeds $10 M). Consequently, we are prepared to compromise on our beta value (value inside the other two) to obtain coverage at a reduced cost.<br> 
 
+Where N>2 there are infinitely many solutions to the problem f(x) = 0 so we are interested in the solution with the **smallest weights** ->  with the smallest norm ||x||
+
 We define x, β and I as follows
          
         [ S1  ]        [ β1  ]          [  1  ]
@@ -271,15 +273,18 @@ We define x, β and I as follows
         [ SN  ]        [ βN  ]          [  1  ]
   
 
-Also f(x) = f<sub>delta</sub>(x) + f<sub>beta</sub>(x)<br>
+Also f(x; ε) = f<sub>delta</sub>(x) + f<sub>beta</sub>(x) + f<sub>penalty</sub>(x; ε)<br>
 
 Where:
-    f<sub>delta</sub>(x) = (I<sup>T</sup>x + S<sub>0</sub>)<sup>2</sup> and f<sub>beta</sub>(x) = (β<sup>T</sup>x + β<sub>0</sub>S<sub>0</sub>)<sup>2</sup>
+    f<sub>delta</sub>(x) = (I<sup>T</sup>x + S<sub>0</sub>)<sup>2</sup>,  f<sub>beta</sub>(x) = (β<sup>T</sup>x + β<sub>0</sub>S<sub>0</sub>)<sup>2</sup> and f<sub>penalty</sub>(x; ε) = ε||x||<sup>2</sup><br>
+    
+The parameter ε will allow the portfolio manager to control the degree of “onesidedness” of the optimal solution:<br>
+. No constraints -> we solve the problem without the need of Lagrange Multipliers<br>
+. The solution cannot be perfectly beta-neutral and delta-neutral, as before<br>
 
-The cost function f(x) is a quadratic function in i.e. its gradient is linear in and its Hessian
-matrix (second derivatives) is constant.
 
-Where N>2 there are infinitely many solutions to the problem f(x) = 0 so we are interested in the solution with the **smallest weights** ->  with the smallest norm ||x||
+### 4.2 Minimum-variance portfolio as an optimisation problem with constraints
+
 
 
 
