@@ -251,16 +251,37 @@ Beta neutral: Find S<sub>1</sub>,...,S<sub>N</sub> such as β<sub>0</sub>S<sub>0
         mtx = np.transpose(np.column_stack((deltas, self.hedge_betas)))          
         self.hedge_weights = np.linalg.solve(mtx,target)
 
+  Mathematically the matrix would be such that:
+
+        [ 1  1  ]  * [ S1 ]        [  -S0   ]
+        [ β1 β2 ]    [ S2 ]    =   [ -β0*S0 ]
+  
+
 Utilizing this method enables us to hedge our principal security exclusively with two additional assets.     
 
 
-#### Generalizing the coverage model
+### 4.2 Generalizing the coverage model
 
-The present model necessitates a substantial financial outlay to address a relatively minor sum (i.e., $660 M significantly exceeds $10 M). Consequently, we are prepared to compromise on our beta value (value inside the other two) to obtain coverage at a reduced cost.
+The present model necessitates a substantial financial outlay to address a relatively minor sum (i.e., $660 M significantly exceeds $10 M). Consequently, we are prepared to compromise on our beta value (value inside the other two) to obtain coverage at a reduced cost.<br> 
 
-Following the last example, if someone give us X amount of NVDA, we want a way to make hedge_weights always positive.
+We define x, β and I as follows
+         
+        [ S1  ]        [ β1  ]          [  1  ]
+    x = [ ... ]    β = [ ... ]      I = [ ... ]
+        [ SN  ]        [ βN  ]          [  1  ]
   
-  
+
+Also f(x) = f<sub>delta</sub>(x) + f<sub>beta</sub>(x)<br>
+
+Where:
+    f<sub>delta</sub>(x) = (I<sup>T</sup>x + S<sub>0</sub>)<sup>2</sup> and f<sub>beta</sub>(x) = (β<sup>T</sup>x + β<sub>0</sub>S<sub>0</sub>)<sup>2</sup>
+
+The cost function f(x) is a quadratic function in i.e. its gradient is linear in and its Hessian
+matrix (second derivatives) is constant.
+
+Where N>2 there are infinitely many solutions to the problem f(x) = 0 so we are interested in the solution with the **smallest weights** ->  with the smallest norm ||x||
+
+
 
 
 
