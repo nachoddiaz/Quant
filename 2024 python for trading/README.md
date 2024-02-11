@@ -278,12 +278,14 @@ Also f(x; ε) = f<sub>delta</sub>(x) + f<sub>beta</sub>(x) + f<sub>penalty</sub>
 Where:
     f<sub>delta</sub>(x) = (I<sup>T</sup>x + S<sub>0</sub>)<sup>2</sup>,  f<sub>beta</sub>(x) = (β<sup>T</sup>x + β<sub>0</sub>S<sub>0</sub>)<sup>2</sup> and f<sub>penalty</sub>(x; ε) = ε||x||<sup>2</sup><br>
     
-The parameter ε will allow the portfolio manager to control the degree of “onesidedness” of the optimal solution:<br>
+The parameter ε will allow the portfolio manager to control the degree of “onesidedness” (the securities we use to hedge must have the sime sign) of the optimal solution:<br>
 . No constraints -> we solve the problem without the need of Lagrange Multipliers<br>
 . The solution cannot be perfectly beta-neutral and delta-neutral, as before<br>
 
 
-### 4.2 Minimum-variance portfolio as an optimisation problem with constraints
+### 4.3 Portfolio optimisation problem with constraints
+#### A. Minimum-variance portfolio
+#### B. Markowitz portfolio
 
 
 
