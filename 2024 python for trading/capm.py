@@ -146,7 +146,7 @@ class hedger:
             beta = compute_betas(self.benchmark, security)
             self.hedge_betas.append(beta)
     
-    def compute_optimal_hedge(self):
+    def compute_optimal_hedge(self, epsylon):
         dimensions = len(self.hedge_securities)
         if dimensions != 2:
             print('Cannot compute the exact solution cause dimensions = ' + str(dimensions))
