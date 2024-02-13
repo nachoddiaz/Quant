@@ -19,9 +19,9 @@ importlib.reload(capm)
 
 #inputs
 benchmark = '^SPX'
-position_security = 'BTC-USD'
+position_security = 'NVDA'
 position_delta_usd = 10 # in M USDC
-hedge_securites = ['XLK','XLF']
+hedge_securites = ['GOOG','AAPL']
 epsylon = 0.0
 
 hedger = capm.hedger(position_security, position_delta_usd, hedge_securites, benchmark)
@@ -31,6 +31,8 @@ print('Our position of ' + str(position_delta_usd) + ' million USD of '  + str(p
 print('Has been hedged with ' + str(hedger.hedge_weights[0]) + ' million USD of '+ str(hedge_securites[0])+ ' and ' + str(hedger.hedge_weights[1]) + ' Million USD of ' + str(hedge_securites[1]) )
 hedge_weights_exact = hedger.hedge_weights
 
+
+########################
 betas = hedger.hedge_betas
 target_delta = hedger.position_delta_usd
 target_beta = hedger.position_beta_usd
@@ -46,6 +48,8 @@ def cost_function(x, betas, target_delta, target_beta):
 #initial condition
 x0 = -target_delta/len(betas) * np.ones(len(betas))
 
+#This function can cover our posotion_security with 
+# as many as securities we want
 optimal_result = op.minimize(fun=cost_function, x0=x0,\
                     args=(betas,target_delta,target_beta))
 
