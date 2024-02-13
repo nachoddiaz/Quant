@@ -14,36 +14,54 @@ import scipy.optimize as op
 import importlib
 import os
 
-# import capm
-# importlib.reload(capm)
+import capm
+importlib.reload(capm)
 
-def cost_function(x, roots, coeffs):
-    f = 0
-    for n in range(len(x)):
-        f += coeffs[n]*(x[n] - roots[n])**2
+#inputs
+benchmark = '^SPX'
+position_security = 'BTC-USD'
+position_delta_usd = 10 # in M USDC
+hedge_securites = ['XLK','XLF']
+epsylon = 0.0
+
+hedger = capm.hedger(position_security, position_delta_usd, hedge_securites, benchmark)
+hedger.compute_betas()
+hedger.compute_hedge_weights(epsylon)
+print('Our position of ' + str(position_delta_usd) + ' million USD of '  + str(position_security))
+print('Has been hedged with ' + str(hedger.hedge_weights[0]) + ' million USD of '+ str(hedge_securites[0])+ ' and ' + str(hedger.hedge_weights[1]) + ' Million USD of ' + str(hedge_securites[1]) )
+hedge_weights_exact = hedger.hedge_weights
+
+betas = hedger.hedge_betas
+target_delta = hedger.position_delta_usd
+target_beta = hedger.position_beta_usd
+def cost_function(x, betas, target_delta, target_beta):
+    dimension = len(x)
+    deltas = np.ones([dimension])
+    f_delta = (np.transpose(deltas).dot(x).item() + target_delta)**2
+    f_beta = (np.transpose(betas).dot(x).item() + target_beta)**2
+    #f_penalty =
+    f = f_delta + f_beta #+ f_penalty
     return f
+    
+#initial condition
+x0 = -target_delta/len(betas) * np.ones(len(betas))
 
-dimensions = 5
-roots = np.random.randint(low=-20, high=20, size=dimensions)
-coeffs = np.ones(dimensions)
+optimal_result = op.minimize(fun=cost_function, x0=x0,\
+                    args=(betas,target_delta,target_beta))
 
-x = np.zeros(dimensions)
-
-optimal_result = op.minimize(fun=cost_function, x0=x, args=(roots,coeffs))
+hedge_weights_optimal = optimal_result.x
 
 print('optimal result:')
 print(optimal_result)
 
 
-# #inputs
-# benchmark = '^SPX'
-# position_security = 'BTC-USD'
-# position_delta_usd = 1 # in M USDC
-# hedge_securites = ['^SPX','^VIX']
-# epsylon = 0.01
 
-# hedger = capm.hedger(position_security, position_delta_usd, hedge_securites, benchmark)
-# hedger.compute_betas()
-# hedger.compute_optimal_hedge(epsylon)
-# print('Our position of ' + str(position_delta_usd) + ' million USD of '  + str(position_security))
-# print('Has been hedged with ' + str(hedger.hedge_weights[0]) + ' million USD of '+ str(hedge_securites[0])+ ' and ' + str(hedger.hedge_weights[1]) + ' Million USD of ' + str(hedge_securites[1]) )
+
+
+
+
+
+
+
+
+
