@@ -284,6 +284,21 @@ The parameter ε will allow the portfolio manager to control the degree of “on
 . The solution cannot be perfectly beta-neutral and delta-neutral, as before<br>
 
 
+The code that executes the coverage model generalizing is as follows: <br>
+
+    def cost_function(x, betas, target_delta, target_beta):
+        dimension = len(x)
+        deltas = np.ones([dimension])
+        f_delta = (np.transpose(deltas).dot(x).item() + target_delta)**2
+        f_beta = (np.transpose(betas).dot(x).item() + target_beta)**2
+        f = f_delta + f_beta
+        return f
+        
+    #initial condition
+    x0 = -target_delta/len(betas) * np.ones(len(betas))
+    optimal_result = op.minimize(fun=cost_function, x0=x0, args=(betas,target_delta,target_beta))
+
+Where `betas` is β, `target_delta` is S<sub>0</sub> and `target_beta` is β<sub>0</sub>S<sub>0</sub>
 ### 4.3 Portfolio optimisation problem with constraints
 #### A. Minimum-variance portfolio
 #### B. Markowitz portfolio
