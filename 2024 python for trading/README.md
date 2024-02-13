@@ -275,8 +275,9 @@ We define x, β and I as follows
 
 Also f(x; ε) = f<sub>delta</sub>(x) + f<sub>beta</sub>(x) + f<sub>penalty</sub>(x; ε)<br>
 
-Where:
-    f<sub>delta</sub>(x) = (I<sup>T</sup>x + S<sub>0</sub>)<sup>2</sup>,  f<sub>beta</sub>(x) = (β<sup>T</sup>x + β<sub>0</sub>S<sub>0</sub>)<sup>2</sup> and f<sub>penalty</sub>(x; ε) = ε||x||<sup>2</sup><br>
+Where:<br>
+    f<sub>delta</sub>(x) = (I<sup>T</sup>x + S<sub>0</sub>)<sup>2</sup>,<br>
+    f<sub>beta</sub>(x) = (β<sup>T</sup>x + β<sub>0</sub>S<sub>0</sub>)<sup>2</sup> <br> f<sub>penalty</sub>(x; ε) = ε||x||<sup>2</sup><br>
     
 The parameter ε will allow the portfolio manager to control the degree of “onesidedness” (the securities we use to hedge must have the sime sign) of the optimal solution:<br>
 . No constraints -> we solve the problem without the need of Lagrange Multipliers<br>
