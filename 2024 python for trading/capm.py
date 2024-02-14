@@ -16,11 +16,36 @@ import os
 import market_data
 importlib.reload(market_data)
 
+
+
 def compute_betas (benchmark, security):
     m = model(benchmark, security)
     m.sync_timeseries()
     m.compute_linear_regression()
     return m.beta
+
+
+def compute_correlation (security1 , security2):
+    m = model(security1, security2)
+    m.sync_timeseries()
+    m.compute_linear_regression() 
+    return m.correlation
+
+def dataframe_correl_beta (benchmark, position_security, hedge_universe):
+    decimals = 5
+    df = pd.DataFrame()
+    correlations = []
+    betas = []
+    for hedge_security in hedge_universe:
+        correlation = compute_correlation(position_security, hedge_security)
+        print(correlation)
+        beta = compute_betas(benchmark, hedge_security)
+        correlations.append(np.round(correlation, decimals))
+        betas.append(np.round(beta, decimals))
+    df['hedge_security'] = hedge_universe
+    df['correlation'] = correlation
+    df['betas'] = betas
+    df = df.sort_values(by='correlation', ascending=False)
 
 def cost_function_capm(x, betas, target_delta, target_beta, regularisation):
     dimension = len(x)
@@ -51,7 +76,7 @@ class model:
         self.r_value = None
         self.r_squared = None
         self.p_value = None
-        self.corr = None
+        self.correlation = None
         self.null_hyp = None
         self.line = None
         self.x = None
@@ -103,14 +128,14 @@ class model:
     def compute_linear_regression(self):
         self.x=self.timeseries['return_x'].values
         self.y=self.timeseries['return_y'].values
-        self.beta, self.alpha, self.r_value, self.p_value, std_err = st.linregress(self.x, self.y) #, alternative='two-sided'
-        self.corr = np.round(self.r_value,self.decimals)
-        self.r_squared = np.round(self.r_value**2,self.decimals)
-        self.alpha = np.round(self.alpha, self.decimals)
-        self.beta = np.round(self.beta, self.decimals)
-        self.p_value = np.round(self.p_value, self.decimals)
-        self.null_hyp = self.p_value > 0.05
-        self.line = self.alpha + self.beta*self.x
+        slope, intercept, r_value, p_value, std_err = st.linregress(self.x, self.y) #, alternative='two-sided'
+        self.alpha = np.round(intercept, self.decimals)
+        self.beta = np.round(slope, self.decimals)
+        self.p_value = np.round(p_value, self.decimals)
+        self.null_hyp = p_value > 0.05
+        self.correlation = np.round(r_value,self.decimals)
+        self.r_squared = np.round(r_value**2,self.decimals)
+        self.line = intercept + slope*self.x
         
     def plot_linear_regression(self):
         self.x=self.timeseries['return_x'].values

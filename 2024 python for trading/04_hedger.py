@@ -21,10 +21,13 @@ importlib.reload(capm)
 benchmark = '^SPX'
 position_security = 'NVDA'
 position_delta_usd = 10 # in M USDC
-hedge_securites = ['AAPL', 'MSFT']
+hedge_universe = ['SPY','AAPL', 'MSFT', 'AMZN', 'GOOG', 'META', 'NFLX', 'NVDA', 'XLF', 'XLK']
 regularisation = 0.01
 
-hedger = capm.hedger(position_security, position_delta_usd, hedge_securites, benchmark)
+df = capm.dataframe_correl_beta(benchmark, position_security, hedge_universe)
+
+hedge_securities = [hedge_universe[0], hedge_universe[1]]
+hedger = capm.hedger(position_security, position_delta_usd, hedge_securities, benchmark)
 hedger.compute_betas()
 hedger.compute_hedge_weights_optimize(regularisation)
 
