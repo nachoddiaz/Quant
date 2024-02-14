@@ -121,7 +121,7 @@ We employ an alpha level of 5% to identify the worst trading day within a month,
 
 ## 3. Capital Asset Pricing Model
 
-## 3.1 Introduction
+### 3.1 Introduction
 
 #### **Definition**:The model takes into account the asset's sensitivity to non-diversifiable risk, often represented by the quantity beta (β) in the financial industry, as well as the expected return of the market and the expected return of a theoretical risk-free asset. Also can be defined as a linear regression of asset Alpha respect to the market M
 
@@ -306,14 +306,40 @@ f<sub>penalty</sub>(x; ε) = ε||x||<sup>2</sup> = ` f_penalty = regularisation 
 
 where `np.sum(x**2)` is ||x||^2<br>
 
-And now f will look like this `f = f_delta + f_beta + f_penalty`
+And now the funciont will look like this `f = f_delta + f_beta + f_penalty`
 
-Now, 
+Now we want to order all the assets of a set based on their correlation with the asset to be analyzed to choose the "n" that best suit us 
+
+We can do it by creating a dataFrame and order the items by it correlation<br>
+Code ->
+
+        def dataframe_correl_beta (benchmark, position_security, hedge_universe):
+        decimals = 5
+        df = pd.DataFrame()
+        correlations = []
+        betas = []
+        for hedge_security in hedge_universe:
+            correlation = compute_correlation(position_security, hedge_security)
+            beta = compute_betas(benchmark, hedge_security)
+            correlations.append(np.round(correlation, decimals))
+            betas.append(np.round(beta, decimals))
+        df['hedge_security'] = hedge_universe
+        df['correlation'] = correlations
+        df['beta'] = betas
+        df = df.sort_values(by='correlation', ascending=False)
+        return df
+
+Declaring the universe of assets and compare then by: <br>
+
+      df = capm.dataframe_correl_beta(benchmark, position_security, hedge_universe_fin)
 
 
-### 4.3 Portfolio optimisation problem with constraints
-#### A. Minimum-variance portfolio
-#### B. Markowitz portfolio
+
+## 5. Factor Investing
+
+### 5.1 Introduction
+
+#### **Definition**: Factor investing is an investment approach that involves targeting quantifiable firm characteristics or “factors” that can explain differences in stock returns. Security characteristics that may be included in a factor-based approach include size, low-volatility, value, momentum, asset growth, profitability, leverage, term and carry
 
 
 
