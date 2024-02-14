@@ -23,10 +23,10 @@ import os
 import capm
 importlib.reload(capm)
 
-security = 'AAPL'    #y
-factors = [ '^SPX', 'IVW', 'IVE', 'SIZE', 'MTUM', 'QUAL', 'USMV' ]    #x
+position_security = 'AAPL'    #y
+factors = ['^SPX', 'IVW', 'IVE', 'SIZE', 'MTUM', 'QUAL', 'USMV' ]    #x
 
-
+df = capm.dataframe_factors(position_security, factors)
 
 
 

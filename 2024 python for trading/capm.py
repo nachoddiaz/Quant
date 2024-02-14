@@ -47,6 +47,25 @@ def dataframe_correl_beta (benchmark, position_security, hedge_universe):
     df = df.sort_values(by='correlation', ascending=False)
     return df
 
+
+def dataframe_factors (security, factors):
+    decimals = 5
+    df = pd.DataFrame()
+    correlations = []
+    betas = []
+    for factor in factors:
+        correlation = compute_correlation(security, factor)
+        beta = compute_betas(factor,security)
+        correlations.append(np.round(correlation, decimals))
+        betas.append(np.round(beta, decimals))
+    df['factors'] = factors
+    df['correlation'] = correlations
+    df['beta'] = betas
+    df = df.sort_values(by='correlation', ascending=False)
+    return df
+
+
+
 def cost_function_capm(x, betas, target_delta, target_beta, regularisation):
     dimension = len(x)
     deltas = np.ones([dimension])
