@@ -302,8 +302,13 @@ Where `betas` is β, `target_delta` is S<sub>0</sub> and `target_beta` is β<sub
 
 If we add the error (ε) the code the code would look like this: <br>
 
+f<sub>penalty</sub>(x; ε) = ε||x||<sup>2</sup> = ` f_penalty = regularisation * np.sum(x**2) `<br>
 
+where `np.sum(x**2)` is ||x||^2<br>
 
+And now f will look like this `f = f_delta + f_beta + f_penalty`
+
+Now, 
 
 
 ### 4.3 Portfolio optimisation problem with constraints
