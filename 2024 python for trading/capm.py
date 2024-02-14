@@ -38,14 +38,14 @@ def dataframe_correl_beta (benchmark, position_security, hedge_universe):
     betas = []
     for hedge_security in hedge_universe:
         correlation = compute_correlation(position_security, hedge_security)
-        print(correlation)
         beta = compute_betas(benchmark, hedge_security)
         correlations.append(np.round(correlation, decimals))
         betas.append(np.round(beta, decimals))
     df['hedge_security'] = hedge_universe
-    df['correlation'] = correlation
-    df['betas'] = betas
+    df['correlation'] = correlations
+    df['beta'] = betas
     df = df.sort_values(by='correlation', ascending=False)
+    return df
 
 def cost_function_capm(x, betas, target_delta, target_beta, regularisation):
     dimension = len(x)
