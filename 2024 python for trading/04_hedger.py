@@ -19,19 +19,26 @@ importlib.reload(capm)
 
 #inputs
 benchmark = '^SPX'
-position_security = 'NVDA'
+position_security = '^SPX'
 position_delta_usd = 10 # in M USDC
-hedge_securites = ['GOOG','AAPL']
+hedge_securites = ['GOOG','AAPL', 'MSFT', 'AMZN']
 epsylon = 0.0
 
 hedger = capm.hedger(position_security, position_delta_usd, hedge_securites, benchmark)
 hedger.compute_betas()
+
+
+#########################
+# Only for 2 securities #
+#########################
 hedger.compute_hedge_weights(epsylon)
 print('Our position of ' + str(position_delta_usd) + ' million USD of '  + str(position_security))
 print('Has been hedged with ' + str(hedger.hedge_weights[0]) + ' million USD of '+ str(hedge_securites[0])+ ' and ' + str(hedger.hedge_weights[1]) + ' Million USD of ' + str(hedge_securites[1]) )
 hedge_weights_exact = hedger.hedge_weights
 
 
+########################
+#     Generalizing     #
 ########################
 betas = hedger.hedge_betas
 target_delta = hedger.position_delta_usd
