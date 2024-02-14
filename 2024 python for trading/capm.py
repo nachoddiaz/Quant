@@ -22,6 +22,15 @@ def compute_betas (benchmark, security):
     m.compute_linear_regression()
     return m.beta
 
+def cost_function_capm(x, betas, target_delta, target_beta, regularisation):
+    dimension = len(x)
+    deltas = np.ones([dimension])
+    f_delta = (np.transpose(deltas).dot(x).item() + target_delta)**2
+    f_beta = (np.transpose(betas).dot(x).item() + target_beta)**2
+    f_penalty = regularisation * np.sum(x**2)
+    f = f_delta + f_beta + f_penalty
+    return f
+
      
 
 
@@ -136,8 +145,10 @@ class hedger:
         self.position_beta_usd = None
         self.hedge_betas = []
         self.hedge_weights = []
-        self.hedge_delta = None
+        self.hedge_delta_usd = None
         self.hedge_beta_usd = None
+       
+        
         
     def compute_betas(self):
         self.position_beta = compute_betas(self.benchmark, self.position_security)
@@ -145,8 +156,24 @@ class hedger:
         for security in self.hedge_securities:
             beta = compute_betas(self.benchmark, security)
             self.hedge_betas.append(beta)
+            
+            
+    def compute_hedge_weights_optimize(self, regularisation = 0):
+        #initial condition
+        x0 = -self.position_delta_usd/len(self.hedge_betas) * np.ones(len(self.hedge_betas))
+        optimal_result = op.minimize(fun=cost_function_capm, x0=x0,\
+                    args=(self.hedge_betas,\
+                          self.position_delta_usd,\
+                          self.position_beta_usd,\
+                          regularisation))
+        self.hedge_weights = optimal_result.x
+        self.hedge_delta_usd = np.sum(self.hedge_weights)
+        self.hedge_beta_usd = np.transpose(self.hedge_betas).dot(self.hedge_weights).item()
     
-    def compute_hedge_weights(self, epsylon):
+    
+    
+    
+    def compute_hedge_weights_exact(self):
         dimensions = len(self.hedge_securities)
         if dimensions != 2:
             print('Cannot compute the exact solution cause dimensions = ' + str(dimensions))
