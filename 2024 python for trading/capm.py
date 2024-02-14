@@ -146,7 +146,7 @@ class model:
             + ' | beta (slope) ' + str(self.beta) + '\n'\
             + 'p-value ' + str(self.p_value)\
             + ' | null hypothesis: ' + str(self.null_hyp) + '\n'\
-            + 'correl (r-value) ' + str(self.corr)\
+            + 'correl (r-value) ' + str(self.correlation)\
             + ' | r-squared ' + str(self.r_squared)
         str_title = 'Scatterplot of returns' + '\n' + str(str_self)
         plt.figure()

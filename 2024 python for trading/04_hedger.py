@@ -18,14 +18,15 @@ import capm
 importlib.reload(capm)
 
 #inputs
-benchmark = '^SPX'
-position_security = 'V'
+benchmark = 'JNJ'
+position_security = 'JNJ'
 position_delta_usd = 10 # in M USDC
 hedge_universe_tech = ['SPY','AAPL', 'MSFT', 'AMZN', 'GOOG', 'META', 'NFLX', 'NVDA', 'XLF', 'XLK']
 hedge_universe_fin = ['SPY','BRK-B', 'JPM', 'V', 'MA', 'MS', 'GS', 'BLK', 'XLF', 'BAC']
+hedge_universe_sectors = ['JNJ', '^SPX', 'XLK', 'XLV', 'XLP', 'XLY', 'XLE', 'XLI', 'XLF']
 regularisation = 0.01
 
-df = capm.dataframe_correl_beta(benchmark, position_security, hedge_universe_fin)
+df = capm.dataframe_correl_beta(benchmark, position_security, hedge_universe_sectors)
 
 hedge_securities = ['SPY', 'MA']
 hedger = capm.hedger(position_security, position_delta_usd, hedge_securities, benchmark)

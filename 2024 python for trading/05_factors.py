@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Wed Feb 14 20:24:34 2024
+
+@author: Nacho
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Sun Feb  4 18:36:17 2024
 
 @author: Nacho
@@ -16,14 +23,10 @@ import os
 import capm
 importlib.reload(capm)
 
-benchmark = 'MA'      #x
-security = 'V'    #y
+security = 'AAPL'    #y
+factors = [ '^SPX', 'IVW', 'IVE', 'SIZE', 'MTUM', 'QUAL', 'USMV' ]    #x
 
-model = capm.model(benchmark, security)
-model.sync_timeseries()
-model.plot_timeseries()
-model.compute_linear_regression()
-model.plot_linear_regression()
+
 
 
 
