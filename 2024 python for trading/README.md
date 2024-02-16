@@ -341,6 +341,49 @@ Declaring the universe of assets and compare then by: <br>
 
 #### **Definition**: Factor investing is an investment approach that involves targeting quantifiable firm characteristics or “factors” that can explain differences in stock returns. Security characteristics that may be included in a factor-based approach include size, low-volatility, value, momentum, asset growth, profitability, leverage, term and carry
 
+#### Code
+We aim to compute the correlation and beta of a security in relation to each factor. This is because, according to a rule of thumb, correlations reveal which factors affect the asset, and betas determine the extent to which each factor influences the asset.
+
+    def dataframe_factors (security, factors):
+    decimals = 5
+    df = pd.DataFrame()
+    correlations = []
+    betas = []
+    for factor in factors:
+        correlation = compute_correlation(security, factor)
+        beta = compute_betas(factor,security)
+        correlations.append(np.round(correlation, decimals))
+        betas.append(np.round(beta, decimals))
+    df['factors'] = factors
+    df['correlation'] = correlations
+    df['beta'] = betas
+    df = df.sort_values(by='correlation', ascending=False)
+    return df 
+
+
+Where `compute_correlation` is:
+
+    def compute_correlation (security1 , security2):
+    m = model(security1, security2)
+    m.sync_timeseries()
+    m.compute_linear_regression() 
+    return m.correlation
+
+And where `compute_beta` is:
+
+    def compute_betas (benchmark, security):
+    m = model(benchmark, security)
+    m.sync_timeseries()
+    m.compute_linear_regression()
+    return m.beta
+
+It is important to note that within the compute_betas function, the term "security" assumes the role of a security, and "factor" takes the position of the benchmark.
+
+
+
+
+
+
 
 
 
