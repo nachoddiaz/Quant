@@ -405,8 +405,21 @@ With that notation, we define Q as | λ1   0   ...   0 |<br>&nbsp;&nbsp;&nbsp;&n
 | ...  ... ... ...  |<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 | 0    0   ...  λn |
 <br>
-Where λ<sub>n</sub> are the eigenvalues and the vector associated to them is the eigenvectir
+Where λ<sub>n</sub> are the eigenvalues and the vector associated to them is the eigenvector Qv<sub>n</sub> = λ<sub>n</sub>v<sub>n</sub><br>
 
+
+### 6.3. Variance-covariance matrix
+
+Let 𝑋<sub>1</sub>, … , 𝑋<sub>n</sub> be random variables with means 𝜇<sub>1</sub>, … , 𝜇<sub>n</sub> resp<br>
+The variance-covarianze matrix Q is such that Q<sub>ij</sub> = Cov(X<sub>i</sub>, X<sub>j</sub>) = E[(X<sub>i</sub> -  𝜇<sub>i</sub>)(X<sub>j</sub> -  𝜇<sub>j</sub>)]<br>
+Q by definition, is symmetric -> Q<sub>ij</sub> = Q<sub>ji</sub> and always positive semi-definite<br>
+Defining: <br>
+
+        [ X1  ]        [ 𝜇1  ]
+    x = | ... |    𝜇 = | ... |
+        [ XN  ]        [ 𝜇N  ]
+Then Q(X) = E[(X<sub>i</sub> -  𝜇<sub>i</sub>)(X<sub>j</sub> -  𝜇<sub>j</sub>)<sup>T</sup>]<br>
+And for any w ε R<sup>N</sup> we have w<sup>T</sup>Q(X)w = E[w<sup>T</sup>(X -  𝜇)(X -  𝜇)<sup>T</sup>w] = E[((X -  𝜇)<sup>T</sup>w)<sup>2</sup>] ≥ 0
 
 
 
