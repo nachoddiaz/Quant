@@ -383,6 +383,20 @@ It is important to note that within the compute_betas function, the term "securi
 
 
 
+## 6. Geometry of the variance-covariance matrix
+
+### Mathematical Introduction
+
+Starting from the general equation of an ellipse : Ax<sup>2</sup> + 2Bxy + Cy<sup>2</sup> + Dx  Ey + F = 0<br> 
+if we make a rotation, a translation and we refactore it, the ecuation looks (<sup>x</sup>/<sub>a</sub>)<sup>2</sup> + (<sup>y</sup>/<sub>b</sub>)<sup>2</sup> = 1 <br<
+In matrix notation it becomes [x, y] * |λ₁  0|&nbsp;&nbsp;&nbsp;&nbsp;|x| <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|0  λ₂| * |y| = 1 <br>
+  where λ₁ = 1/a² y λ₂ = 1/b²
+
+
+
+
+
 
 
 
