@@ -422,6 +422,43 @@ Then Q(X) = E[(X<sub>i</sub> -  𝜇<sub>i</sub>)(X<sub>j</sub> -  𝜇<sub>j</s
 And for any w ε R<sup>N</sup> we have w<sup>T</sup>Q(X)w = E[w<sup>T</sup>(X -  𝜇)(X -  𝜇)<sup>T</sup>w] = E[((X -  𝜇)<sup>T</sup>w)<sup>2</sup>] ≥ 0
 
 
+### 6.4. Implementation in code
+ We are going to follow the next three steps: <br>
+ 
+ Get the intersection of all timestamps:
+ 
+    df = pd.DataFrame()
+    #Like a mapping in solidity
+    dic_timeseries = {}
+    timestamps=[]
+    for ric in rics:
+        t = market_data.load_timeseries(ric)
+        dic_timeseries[ric] = t
+        if len(timestamps) == 0:
+            timestamps = list(t['date'].values)
+        temp_timestamps = list(t['date'].values)
+        timestamps = list(set(timestamps) & set(temp_timestamps))
+
+
+  Sync timeseries
+
+    for ric in dic_timeseries:
+        t = dic_timeseries[ric]
+        t = t[t['date'].isin(timestamps)]
+        t = t.sort_values(by='date', ascending=True)
+        t = t.dropna()
+        t = t.reset_index(drop=True)
+        dic_timeseries[ric] = t
+        if df.shape[1] == 0:
+            df['date'] = timestamps
+        df[ric] = t['return']
+          
+
+  Compute Variance-covariance matrix and Correlation matrix:
+
+    mtx= df.drop(columns=['date'])
+    mtx_var_cov = np.cov(mtx, rowvar=False)
+    mtx_correl = np.corrcoef(mtx, rowvar=False)
 
 
 
