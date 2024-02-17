@@ -16,17 +16,20 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy
-import scipy.stats  as st #import skew, kurtosis, chi2, tmean, tstd
+import scipy.stats  as st 
 import importlib
 import os
 
 import capm
 importlib.reload(capm)
 
-position_security = 'AAPL'    #y
-factors = ['^SPX', 'IVW', 'IVE', 'SIZE', 'MTUM', 'QUAL', 'USMV' ]    #x
+position_security = 'BTC-USD'    #y
+factors = ['^SPX', 'IVW', 'IVE', 'SIZE', 'MTUM', 'QUAL', 'USMV', \
+           'XLK', 'XLF', 'XLV' , 'XLP', 'XLY', 'XLI', 'XLC', 'XLU']    #x
 
 df = capm.dataframe_factors(position_security, factors)
+
+
 
 
 

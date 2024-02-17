@@ -16,8 +16,8 @@ import os
 import capm
 importlib.reload(capm)
 
-benchmark = 'MA'      #x
-security = 'V'    #y
+benchmark = 'SPY'      #x
+security = 'QUAL'    #y
 
 model = capm.model(benchmark, security)
 model.sync_timeseries()
