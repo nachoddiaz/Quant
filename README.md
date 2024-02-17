@@ -33,6 +33,12 @@
   #### 6.2 [Eigenvalues & Eigenvectors](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#62-eigenvalues--eigenvectors)
   #### 6.3 [Variance-covariance matrix](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#63-variance-covariance-matrix)
   #### 6.4 [Implementation in code](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#64-implementation-in-code)
+  #### 6.5 [How to use the covariance](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#65-how-to-use-the-covariance)
+
+
+  ### 7. Principal Component Analysis
+  #### 7.1 [Introduccion](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#71-introduccion)
+  #### 7.2 [Steps to follow](Steps to follow)
     
   
 ##
