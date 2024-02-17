@@ -19,6 +19,11 @@ importlib.reload(capm)
 
 rics = ['^MXX','^SPX','XLK','XLF','XLV','XLP','XLY','XLE','XLI']
 
+rics = ['^MXX','^SPX','^IXIC', '^STOXX', '^GDAXI', '^FCHI','^VIX', \
+        'BTC-USD','ETH-USD','USDC-USD','SOL-USD','USDT-USD','DAI-USD']
+    
+rics = ['BTC-USD','ETH-USD','USDC-USD','SOL-USD','USDT-USD','DAI-USD']
+
 capm.model.sync_returns(rics)
     
 df = capm.model.sync_returns(rics)
@@ -26,11 +31,9 @@ df = capm.model.sync_returns(rics)
 
 # compute variance-covariance matrix
 
-
 #To only have the returns column
 mtx= df.drop(columns=['date'])
 mtx_var_cov = np.cov(mtx, rowvar=False)
-
 
 #compute correlation matrix
 mtx_correl = np.corrcoef(mtx, rowvar=False)
