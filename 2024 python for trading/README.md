@@ -419,7 +419,7 @@ Defining: <br>
     x = | ... |    𝜇 = | ... |
         [ XN  ]        [ 𝜇N  ]
 Then Q(X) = E[(X<sub>i</sub> -  𝜇<sub>i</sub>)(X<sub>j</sub> -  𝜇<sub>j</sub>)<sup>T</sup>]<br>
-And for any w ε R<sup>N</sup> we have w<sup>T</sup>Q(X)w = E[w<sup>T</sup>(X -  𝜇)(X -  𝜇)<sup>T</sup>w] = E[((X -  𝜇)<sup>T</sup>w)<sup>2</sup>] ≥ 0
+And for any w ε R<sup>N</sup> we have w<sup>T</sup>Q(X)w = E[w<sup>T</sup>(X -  𝜇)(X -  𝜇)<sup>T</sup>w] = E[((X -  𝜇)<sup>T</sup>w)<sup>2</sup>] ≥ 0<br>
 
 
 ### 6.4. Implementation in code
@@ -459,6 +459,43 @@ And for any w ε R<sup>N</sup> we have w<sup>T</sup>Q(X)w = E[w<sup>T</sup>(X - 
     mtx= df.drop(columns=['date'])
     mtx_var_cov = np.cov(mtx, rowvar=False)
     mtx_correl = np.corrcoef(mtx, rowvar=False)
+
+### 6.5 How to use the covariance
+
+Is possible to do a change of variables such that: <br>
+Q ->| λ1   ...   0 |<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+| ... ... ...  |<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+| 0  ...  λn |
+<br>
+where 0 ≤ 𝜆<sub>1</sub> ≤ 𝜆<sub>2</sub> ≤ ⋯ ≤ 𝜆<sub>N</sub><br>
+Then the smallest eigenvalue 𝜆<sub>1</sub> of Q has an eigenvector that minimises the variance, we are going to call that eigenvector v<sub>1</sub> the minimum variance portofolio.<br>
+
+On the other hand the largest eigenvalue 𝜆<sub>N</sub> of Q has an eigenvector that maximises the variance, we are going to call that eigenvector v<sub>N</sub> the maximum variance portofolio or the **PCA** portfolio.<br>
+
+These eigenvalues provide lower and upper bounds for the volatility of a portfolio:<br>
+where 0 ≤ 𝜆<sub>1</sub> ≤ 𝜆<sub>2</sub> ≤ ⋯ ≤ 𝜆<sub>N</sub><br>
+(𝜆<sub>1</sub>)<sup>1/2</sup> ≤ σ<sub>W</sub> ≤ sqrt(𝜆<sub>N</sub>)<sup>1/2</sup>
+
+
+## 7. Principal Component Analysis
+
+### 7.1 Introduccion
+ **Definition**: is a linear dimensionality reduction technique with applications in exploratory data analysis. The principal components of a collection of points in a real coordinate space are a sequence of p unit vectors, where the i-th vector is the direction of a line that best fits the data while being orthogonal to the first i-1 vectors. Here, a best-fitting line is defined as one that minimizes the average squared perpendicular distance from the points to the line.<br>
+
+ **Goals**:<br>
+Dimensionality Reduction: PCA is used to simplify a complex data set to a lower dimensional space in order to facilitate visualization, interpretation and analysis.<br>
+Data Visualization: By reducing dimensionality to two or three principal components, PCA allows you to visualize the structure of the data in two-dimensional or three-dimensional graphs.<br>
+Pattern Identification: PCA can help identify underlying patterns in data that are not immediately obvious.<br>
+Noise Removal: By focusing on the components that capture the most variation, PCA can help filter out "noise" or random fluctuations in the data.<br>
+
+### 7.2 Steps to follow
+
+1. Pick a treshold where we decide how much variance we want to keep
+2. Pick the eigenvector v<sub>N</sub> for the largest largest eigenvalue 𝜆<sub>N</sub>
+3. Compute the variance -> VAR(v<sub>N</sub>) = (𝜆<sub>N</sub>) / (Σ𝜆<sub>i</sub>)
+4. If VAR(v<sub>N</sub>) ≤ threshold, add the second eigenvecttor (v<sub>N-1</sub>) for the second eigenvalue (𝜆<sub>N-1</sub>)
+5. Compute the variance -> VAR(v<sub>N-1</sub>, v<sub>N</sub>) = (𝜆<sub>N-1</sub>+v<sub>N</sub>) / (Σ𝜆<sub>i</sub>)
+6. Repeat steps 3 and 4 until VAR ≥ threshold
 
 
 
