@@ -22,7 +22,10 @@
   ### 4. Hedging
   #### 4.1 [Delta Neutral Vs Delta Deutral](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#41-beta-neutral-vs-delta-neutral)
   #### 4.2 [Generalizing the coverage model](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#42-generalizing-the-coverage-model)
-  #### 4.3 [Portfolio optimisation problem with constraints](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#43-portfolio-optimisation-problem-with-constraints)
+
+  
+  ### 5. Factor Investing
+  #### 5.1 [Introduction and Code](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#51-introduction)
     
   
 ##
