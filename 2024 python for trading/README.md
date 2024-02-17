@@ -498,6 +498,33 @@ Noise Removal: By focusing on the components that capture the most variation, PC
 6. Repeat steps 3 and 4 until VAR ≥ threshold
 
 
+### 7.3 Code implementation 
+
+Following the calculation of the Variance-covariance and Correlation matrix, we calule fist the eigenvalues and the eigenvectors to calcule the variance explained: <br>
+
+    eigenvalues, eigenvectors = np.linalg.eigh(mtx_var_cov)
+    var_explained = eigenvalues / np.sum(eigenvalues)
+    #matricial product of two vectors
+    prod = np.matmul(eigenvectors, np.transpose(eigenvectors))
+
+Then we want to calculate the principal components to know the minimum and maximum volatility: <br>
+
+    vol_min = np.sqrt(eigenvalues[0])
+    vol_max = np.sqrt(eigenvalues[-1])
+
+  
+And the minimum variance portfolio:
+
+    min_var_vector = eigenvectors[:,0]
+    min_var_eigenvalue = eigenvalues[0]
+    min_var_explained = var_explained[0]
+
+
+    pca_vector_1 = eigenvectors[:,-1]
+    pca_vector_2 = eigenvectors[:,-2]
+    pca_eigenvalue_1 = eigenvalues[-1]
+    pca_eigenvalue_2 = eigenvalues[-2]
+    pca_var_explained = var_explained[-2:].sum()
 
 
 
