@@ -19,34 +19,9 @@ importlib.reload(capm)
 
 rics = ['^MXX','^SPX','XLK','XLF','XLV','XLP','XLY','XLE','XLI']
 
-#Sync timeseries returns
-df = pd.DataFrame()
-#Like a mapping in solidity
-dic_timeseries = {}
-timestamps=[]
-# Get intersection of all timestamps
-for ric in rics:
-    t = market_data.load_timeseries(ric)
-    dic_timeseries[ric] = t
-    #To make all arrays the same lenght
-    if len(timestamps) == 0:
-        timestamps = list(t['date'].values)
-    temp_timestamps = list(t['date'].values)
-    timestamps = list(set(timestamps) & set(temp_timestamps))
+capm.model.sync_returns(rics)
     
-    
-#sync timeseries
-for ric in dic_timeseries:
-    t = dic_timeseries[ric]
-    t = t[t['date'].isin(timestamps)]
-    t = t.sort_values(by='date', ascending=True)
-    t = t.dropna()
-    t = t.reset_index(drop=True)
-    dic_timeseries[ric] = t
-    if df.shape[1] == 0:
-        df['date'] = timestamps
-    df[ric] = t['return']
-    
+df = capm.model.sync_returns(rics)
 
 
 # compute variance-covariance matrix
