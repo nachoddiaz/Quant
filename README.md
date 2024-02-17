@@ -39,6 +39,7 @@
   ### 7. Principal Component Analysis
   #### 7.1 [Introduccion](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#71-introduccion)
   #### 7.2 [Steps to follow](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#72-steps-to-follow)
+  #### 7.3 [Code implementation](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#73-code-implementation)
     
   
 ##
