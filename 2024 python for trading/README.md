@@ -385,13 +385,27 @@ It is important to note that within the compute_betas function, the term "securi
 
 ## 6. Geometry of the variance-covariance matrix
 
-### Mathematical Introduction
+### 6.1. Mathematical Introduction
 
 Starting from the general equation of an ellipse : Ax<sup>2</sup> + 2Bxy + Cy<sup>2</sup> + Dx  Ey + F = 0<br> 
 if we make a rotation, a translation and we refactore it, the ecuation looks (<sup>x</sup>/<sub>a</sub>)<sup>2</sup> + (<sup>y</sup>/<sub>b</sub>)<sup>2</sup> = 1 <br<
 In matrix notation it becomes [x, y] * |λ₁  0|&nbsp;&nbsp;&nbsp;&nbsp;|x| <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|0  λ₂| * |y| = 1 <br>
   where λ₁ = 1/a² y λ₂ = 1/b²
+
+The theorem that we apply is that a change of variable can be applied to any symmetric (a<sub>ij</sub> = a<sub>ji</sub>) or positive semi-definite (x<sup>T</sup> Qx ≥ 0 for any x ε R<sup>N</sup>)  matrix and it can be diagonalized.
+
+  Under the new coordinates  |A  B|  ->   |λ₁  0|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|B  C|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|0  λ₂|
+
+  ### 6.2. Eigenvalues & Eigenvectors
+
+With that notation, we define Q as | λ1   0   ...   0 |<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+| 0   λ2   ...   0 |<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+| ...  ... ... ...  |<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+| 0    0   ...  λn |
+<br>
+Where λ<sub>n</sub> are the eigenvalues and the vector associated to them is the eigenvectir
 
 
 
