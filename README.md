@@ -26,6 +26,13 @@
   
   ### 5. Factor Investing
   #### 5.1 [Introduction and Code](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#51-introduction)
+
+
+  ### 6. Geometry of the variance-covariance matrix
+  #### 6.1 [Mathematical Introduction](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#61-mathematical-introduction)
+  #### 6.2 [Eigenvalues & Eigenvectors](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#62-eigenvalues--eigenvectors)
+  #### 6.3 [Variance-covariance matrix](https://github.com/nachoddiaz/Quant/blob/main/2024%20python%20for%20trading/README.md#63-variance-covariance-matrix)
+  #### 6.4 []()
     
   
 ##
