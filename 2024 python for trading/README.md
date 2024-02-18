@@ -533,7 +533,7 @@ And the minimum variance portfolio:
 ### 8.1 Minimum-variance portfolio
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ S<sub>1</sub>  ] <br>
-As we said, this portfolio is a vector of weights of x = [ ... ]<br> 
+As we said, this portfolio is a vector of weights of x = |&nbsp; ... &nbsp;|<br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ S<sub>N</sub>  ]<br>
 that minimises the variance defined as f(x) = x<sup>T</sup> Qx<br> 
 Also we add some restrictions:
@@ -546,6 +546,21 @@ Also we add some restrictions:
 
 
 ### 8.2 Markowitz portfolio
+
+The Markowitz portfolio is the minimum-variance problem before with an extra
+restriction on the returns of the portfolio named r<sub>target</sub>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| r<sub>1</sub>  |<br>
+Let r = | ... &nbsp;|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| λ<sub>n</sub> |<br>
+
+The problem is nw to minimise the variance f(x) = x<sup>T</sup> Qx<br> we the following restrictions:
+1. Non-negative weights.<br>
+2. Unitary portfolio in L<sub>2</sub>-norm or L<sub>1</sub>-norm, respectively
+3. r<sub>target</sub> = r<sup>T</sup>x
+
+Both problems, minimum variance portfolio and Markowitz portfolio, are standard
+minimisation problems with restrictions -> we solve them with Lagrange Multipliers
 
 ### 8.3 Lagrange Multipliers
 
