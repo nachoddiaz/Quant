@@ -578,6 +578,33 @@ With several constraints ∇f(p) + Σ𝜆<sub>k</sub>∇g<sub>k</sub>(p) = 0. Wh
 
 
 
+### 8.4  Hessian matrix and Taylor expansion
+
+Let x = (x<sub>1</sub>,...,x<sub>n</sub>) and consider a twice differentiable function f(x)<br>
+the Taylor expansion of second order is: f(x+h) = f(x) + ∇f(x)<sup>T</sup>h + <sup>1</sup>/<sub>2</sub>h<sup>T</sup>H[f] (x)h + (||h||<sup>T</sup>)<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | <sup>d<sup>2</sup>f</sup>/<sub>dx<sub>1</sub><sup>2</sup></sub>(x) &nbsp;&nbsp;&nbsp;&nbsp; ... &nbsp;&nbsp;  <sup>d<sup>2</sup>f</sup>/<sub>dx<sub>1</sub>dx<sub>n</sub></sub>(x) |<br>
+Where H[f] (x) =| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <sup>d<sup>2</sup>f</sup>/<sub>dx<sub>1</sub>dx<sub>n</sub></sub>(x) &nbsp;&nbsp; ... &nbsp;&nbsp; <sup>d<sup>2</sup>f</sup>/<sub>dx<sub>n</sub><sup>2</sup></sub>(x)&nbsp;&nbsp; |<br>
+
+
+Sinde f(x) is twice differentiable then, H[f] (x) is a symmetric matrix therefore, is diagonalizable.<br>
+
+#### Critical points
+
+Let x<sub>0</sub> be a critical point of f(x), then ∇f(x<sub>0</sub>) = 0 and if h¬0 then the Taylor expansion becomes f(x<sub>0</sub>) + <sup>1</sup>/<sub>2</sub>h<sup>T</sup>H[f] (x)h.<br>
+Seeing this we have the following statements:
+1. If all of the eigenvalues of H[f] (x) are positive then x<sub>0</sub> is a local minimum.
+2. If all of the eigenvalues of H[f] (x) are negative then x<sub>0</sub> is a local maximum.
+3. If there are positive and negative eigenvalues of H[f] (x) then x<sub>0</sub> is a saddle point.<br>
+
+
+### 8.5  Maximum Likelihood  Estimation (MLE)
+
+
+
+
+
 
 
 
