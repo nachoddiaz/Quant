@@ -22,7 +22,7 @@ rics = ['^MXX','^SPX','XLK','XLF','XLV','XLP','XLY','XLE','XLI']
 rics = ['^MXX','^SPX','^IXIC', '^STOXX', '^GDAXI', '^FCHI','^VIX', \
         'BTC-USD','ETH-USD','USDC-USD','SOL-USD','USDT-USD','DAI-USD']
     
-rics = ['BTC-USD','ETH-USD','SOL-USD','USDC-USD','USDT-USD','DAI-USD']
+#rics = ['BTC-USD','ETH-USD','SOL-USD','USDC-USD','USDT-USD','DAI-USD']
 
     
 df = capm.model.sync_returns(rics)
