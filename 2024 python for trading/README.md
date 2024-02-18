@@ -564,6 +564,21 @@ minimisation problems with restrictions -> we solve them with Lagrange Multiplie
 
 ### 8.3 Lagrange Multipliers
 
+We want to minimise the scalar-valued of a function f(x) : R<sup>N</sup> -> R under the constraint g(x) = 0.<br>
+If p is the minimum of f(x) in the N-1 dimensional surface S = {x:g(x) = 0} then
+there exists a real number 𝜆 such that  ∇f(p) + 𝜆∇g(p) = 0.<br>
+
+We define the Lagrangian L(x,𝜆) := f(x) + 𝜆g(x)
+
+<sup>dx</sup>/<sub>dL</sub>(x,𝜆) =  ∇f(x) + 𝜆∇g(x)<br>
+<sup>dx</sup>/<sub>dL</sub>(x,𝜆) = g(x)
+​
+ 
+With several constraints ∇f(p) + Σ𝜆<sub>k</sub>∇g<sub>k</sub>(p) = 0. Where K is the dimension of the space or the constraints.<br>
+
+
+
+
 
 
 
