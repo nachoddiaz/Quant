@@ -52,19 +52,24 @@ min_var_vector = eigenvectors[:,0]
 
 
 #min variance portfolio with optimize
-#def portfolio_var:
+def portfolio_var(x, mtx_var_cov):
+    variance = np.matmul(np.transpose(x), np.matmul(mtx_var_cov,x))
+    return variance
     
     
 x0 = [notional/len(rics)] * len(rics)
-variance = np.matmul(np.transpose(min_var_vector), np.matmul(mtx_var_cov,min_var_vector))
+L2_norm = [{"type": "eq", "fun": lambda x: sum(x**2) - 1}] #unitary in norm L2
+L1_norm = [{"type": "eq", "fun": lambda x: sum(abs(x)) - 1}] #unitary in norm L2
+optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
+            args=(mtx_var_cov),\
+            constraints=L2_norm)
+optimize_vector = optimal_result.x
 
-# optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
-#             args=(len(rics),\
-#                   notional,\
-#                   position_beta_usd))
-# hedge_weights = optimal_result.x
-# hedge_delta_usd = np.sum(hedge_weights)
-# hedge_beta_usd = np.transpose(len(rics)).dot(hedge_weights).item()
+
+df_weigths = pd.DataFrame()
+df_weigths['rics'] = rics
+df_weigths['min_var_vector']= min_var_vector
+df_weigths['optimize_vector']= optimize_vector
 
 
 
