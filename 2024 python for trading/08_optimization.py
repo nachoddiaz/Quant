@@ -4,14 +4,6 @@ Created on Mon Feb 19 17:56:41 2024
 
 @author: Nacho
 """
-
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Feb 17 21:44:52 2024
-
-@author: Nacho
-"""
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -64,13 +56,15 @@ min_var_vector = eigenvectors[:,0]
     
     
 x0 = [notional/len(rics)] * len(rics)
-optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
-            args=(len(rics),\
-                  notional,\
-                  position_beta_usd))
-hedge_weights = optimal_result.x
-hedge_delta_usd = np.sum(hedge_weights)
-hedge_beta_usd = np.transpose(len(rics)).dot(hedge_weights).item()
+variance = np.matmul(np.transpose(min_var_vector), np.matmul(mtx_var_cov,min_var_vector))
+
+# optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
+#             args=(len(rics),\
+#                   notional,\
+#                   position_beta_usd))
+# hedge_weights = optimal_result.x
+# hedge_delta_usd = np.sum(hedge_weights)
+# hedge_beta_usd = np.transpose(len(rics)).dot(hedge_weights).item()
 
 
 
