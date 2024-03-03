@@ -30,7 +30,7 @@ universe = ['^SPX','^IXIC','^MXX','^STOXX','^GDAXI','^FCHI','^VIX',\
             ]
     
 rics = random.sample(universe, 5)
-notional = 10
+notional = 15
 
 # rics = ['^MXX','^SPX','XLK','XLF','XLV','XLP','XLY','XLE','XLI']
 
@@ -48,28 +48,33 @@ mtx_correl = np.corrcoef(mtx, rowvar=False)
 
 #min variance portfolio with eigenverctors
 eigenvalues, eigenvectors = np.linalg.eigh(mtx_var_cov)
-min_var_vector = eigenvectors[:,0]
-
+min_var_vector = eigenvectors[:,0] 
+min_var_vector = notional * min_var_vector / sum(abs(min_var_vector))
 
 #min variance portfolio with optimize
 def portfolio_var(x, mtx_var_cov):
     variance = np.matmul(np.transpose(x), np.matmul(mtx_var_cov,x))
     return variance
-    
-    
+       
 x0 = [notional/len(rics)] * len(rics)
 L2_norm = [{"type": "eq", "fun": lambda x: sum(x**2) - 1}] #unitary in norm L2
 L1_norm = [{"type": "eq", "fun": lambda x: sum(abs(x)) - 1}] #unitary in norm L2
 optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
             args=(mtx_var_cov),\
-            constraints=L2_norm)
-optimize_vector = optimal_result.x
+            constraints=L1_norm)
+optimize_vector = optimal_result.x 
+# Normalize with L1 norm
+optimize_vector = notional * optimize_vector / sum(abs(optimal_result.x))
+ 
 
 
 df_weigths = pd.DataFrame()
 df_weigths['rics'] = rics
 df_weigths['min_var_vector']= min_var_vector
+wei = sum(abs(min_var_vector))
 df_weigths['optimize_vector']= optimize_vector
+
+
 
 
 
