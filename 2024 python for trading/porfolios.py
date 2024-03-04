@@ -17,7 +17,7 @@ importlib.reload(market_data)
 import capm
 importlib.reload(capm)
 
-class porfolio: 
+class manager: 
     
     def __init__(self,rics,notional):
         self.rics = rics
@@ -43,4 +43,8 @@ class porfolio:
     
     
    # def min_var_porfolio(self):
+        
+class output: 
+    
+    def __init__(self):
         

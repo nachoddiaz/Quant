@@ -44,12 +44,20 @@ notional = 15
 
 
 
-mtx = porfolios.porfolio(rics, notional)
-mtx_var_cov_ref = porfolios.porfolio.var_matrix()
-mtx_correl = porfolios.porfolio.corr_matrix
+prt_mng = porfolios.manager(rics, notional)
+
+prt_mng.compute_covariance()
+
+
+mtx_correl = porfolios.manager.corr_matrix
 
 
 
 #compute desired portfolio
+port_min_var_L1 = prt_mng.compute_portfolio('min_var_L1')
+port_min_var_L2 = prt_mng.compute_portfolio('min_var_L2')
+port_eq_weigth = prt_mng.compute_portfolio('eq_weigth')
+port_vol_weigth = prt_mng.compute_portfolio('volatility_weigth')
+
 
 
