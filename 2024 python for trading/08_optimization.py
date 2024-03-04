@@ -13,8 +13,6 @@ import random
 import scipy.optimize as op
 
 
-import market_data
-importlib.reload(market_data)
 import capm
 importlib.reload(capm)
 
