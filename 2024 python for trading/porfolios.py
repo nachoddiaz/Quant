@@ -17,6 +17,11 @@ importlib.reload(market_data)
 import capm
 importlib.reload(capm)
 
+def portfolio_var(x, mtx_var_cov):
+    variance = np.matmul(np.transpose(x), np.matmul(mtx_var_cov,x))
+    return variance
+
+
 class manager: 
     
     def __init__(self,rics,notional):
@@ -24,27 +29,27 @@ class manager:
         self.notional = notional
         self.mtx_var_cov = None
         self.mtx_correl = None
-        self.mtx = None
         
-    def mtx(self):
+    def compute_covariance(self):
         df = capm.model.sync_returns(self.rics)
         mtx= df.drop(columns=['date'])
-        return self.mtx
-
-    def var_matrix(self):
-        mtx_var_cov = np.cov(self.mtx, rowvar=False) *252
-        return mtx_var_cov
-    
-    def corr_matrix(rics):
-        df = capm.model.sync_returns(rics)
-        mtx= df.drop(columns=['date'])
-        mtx_correl = np.corrcoef(mtx, rowvar=False)
-        return mtx_correl
+        self.mtx_var_cov = np.cov(mtx, rowvar=False) *252
+        self.mtx_correl = np.corrcoef(mtx, rowvar=False)
     
     
-   # def min_var_porfolio(self):
+    def compute_porfolio(self, portfolio_type):           
+        x0 = [self.notional/len(self.rics)] * len(self.rics)
+        L2_norm = [{"type": "eq", "fun": lambda x: sum(x**2) - 1}] #unitary in norm L2
+        L1_norm = [{"type": "eq", "fun": lambda x: sum(abs(x)) - 1}] #unitary in norm L2
+        optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
+                    args=(self.mtx_var_cov),\
+                    constraints=L1_norm)
+        optimize_vector = optimal_result.x 
+        # Normalize with L1 norm
+        optimize_vector = self.notional * optimize_vector / sum(abs(optimal_result.x))
+         
         
-class output: 
+# class output: 
     
-    def __init__(self):
+#     def __init__(self):
         
