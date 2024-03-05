@@ -58,12 +58,29 @@ class manager:
             optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
                                          args=(self.mtx_var_cov),\
                                          constraints=L1_norm)
-            weights = optimal_result.x
+            weights = np.array(optimal_result.x)
         elif portfolio_type == 'min_var_L2':
             optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
-                args=(self.mtx_var_cov),\
-                constraints=L2_norm)
-            weights = optimal_result.x
+                                         args=(self.mtx_var_cov),\
+                                         constraints=L2_norm)
+            weights = np.array(optimal_result.x)
+            
+        elif portfolio_type == 'long_only':
+            optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
+                                         args=(self.mtx_var_cov),\
+                                         constraints=(L1_norm), \
+                                         bounds = non_negaive)
+            weights = np.array(optimal_result.x)
+            
+        elif portfolio_type == 'markowitz':
+            epsylon = 10**-4
+            if
+            elif
+            elif
+            optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
+                                         args=(self.mtx_var_cov),\
+                                         constraints=L2_norm)
+            weights = np.array(optimal_result.x)
 
         else :
             weights = np.array(x0)
