@@ -54,10 +54,10 @@ tres = prt_mng.compute_covariance()
 
 
 #compute desired portfolio
-# port_min_var_L1 = prt_mng.compute_portfolio('min_var_L1')
-# port_min_var_L2 = prt_mng.compute_portfolio('min_var_L2')
-# port_eq_weigth = prt_mng.compute_portfolio('eq_weigth')
-# port_vol_weigth = prt_mng.compute_portfolio('volatility_weigth')
+port_min_var_L1 = prt_mng.compute_portfolio('min_var_L1')
+port_min_var_L2 = prt_mng.compute_portfolio('min_var_L2')
+port_eq_weigth = prt_mng.compute_portfolio('eq_weigth')
+port_vol_weigth = prt_mng.compute_portfolio('volatility_weigth')
 
 
 

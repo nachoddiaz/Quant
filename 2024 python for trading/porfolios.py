@@ -29,6 +29,7 @@ class manager:
         self.notional = notional
         self.mtx_var_cov = None
         self.mtx_correl = None
+        self.portfolio_type = None
         
     def compute_covariance(self):
         df = capm.model.sync_returns(self.rics)
@@ -37,19 +38,44 @@ class manager:
         self.mtx_correl = np.corrcoef(mtx, rowvar=False)
     
     
-    def compute_porfolio(self, portfolio_type):           
-        x0 = [self.notional/len(self.rics)] * len(self.rics)
+    def compute_portfolio(self, portfolio_type='default'): 
+        #inputs
+        x0 = [self.notional/ len(self.rics)] * len(self.rics)
         L2_norm = [{"type": "eq", "fun": lambda x: sum(x**2) - 1}] #unitary in norm L2
-        L1_norm = [{"type": "eq", "fun": lambda x: sum(abs(x)) - 1}] #unitary in norm L2
-        optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
-                    args=(self.mtx_var_cov),\
-                    constraints=L1_norm)
-        optimize_vector = optimal_result.x 
-        # Normalize with L1 norm
+        L1_norm = [{"type": "eq", "fun": lambda x: sum(abs(x)) - 1}] #unitary in norm L1
+        
+        #compute porfolio depending on the type
+        if portfolio_type == 'min_var_L1':
+            optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
+                args=(self.mtx_var_cov),\
+                constraints=L1_norm)
+        elif portfolio_type == 'min_var_L2':
+            optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
+                args=(self.mtx_var_cov),\
+                constraints=L2_norm)
+        else :
+            optimal_result.x = x0
+         
+        optimal_porfolio = output(self.rics, self.notional)
+        optimal_porfolio.type = self.portfolio_type
+        weights = optimal_result.x  
+        weights = self.notional * weights / sum(abs(weights))
+        
+        #output
+        optimize_vector = optimal_result.x
         optimize_vector = self.notional * optimize_vector / sum(abs(optimal_result.x))
          
         
-# class output: 
+class output: 
     
-#     def __init__(self):
+    def __init__(self,rics,notional):
+        self.rics = rics
+        self.notional = notional
+        self.type = None
+        self.weights = None
+        pass
+    
+    
+         
+    def 
         
