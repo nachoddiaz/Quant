@@ -36,28 +36,13 @@ rics = random.sample(universe, 5)
 notional = 15
 
 
-#compute corr & var matrix
-# df = capm.model.sync_returns(rics)
-# mtx= df.drop(columns=['date'])
-# mtx_var_cov = np.cov(mtx, rowvar=False) *252
-# mtx_correl = np.corrcoef(mtx, rowvar=False)
-
-
-
 prt_mng = porfolios.manager(rics, notional)
-
-tres = prt_mng.compute_covariance()
-
-
-#mtx_correl = porfolios.manager.corr_matrix
-
+prt_mng.compute_covariance()
 
 
 #compute desired portfolio
 port_min_var_L1 = prt_mng.compute_portfolio('min_var_L1')
 port_min_var_L2 = prt_mng.compute_portfolio('min_var_L2')
 port_eq_weigth = prt_mng.compute_portfolio('eq_weigth')
-port_vol_weigth = prt_mng.compute_portfolio('volatility_weigth')
-
 
 

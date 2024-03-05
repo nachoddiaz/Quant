@@ -47,24 +47,23 @@ class manager:
         #compute porfolio depending on the type
         if portfolio_type == 'min_var_L1':
             optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
-                args=(self.mtx_var_cov),\
-                constraints=L1_norm)
+                                         args=(self.mtx_var_cov),\
+                                         constraints=L1_norm)
+            weights = optimal_result.x
         elif portfolio_type == 'min_var_L2':
             optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
                 args=(self.mtx_var_cov),\
                 constraints=L2_norm)
+            weights = optimal_result.x
+
         else :
-            optimal_result.x = x0
+            weights = np.array(x0)
          
-        optimal_porfolio = output(self.rics, self.notional)
-        optimal_porfolio.type = self.portfolio_type
-        weights = optimal_result.x  
-        weights = self.notional * weights / sum(abs(weights))
+        optimal_portfolio = output(self.rics, self.notional)
+        optimal_portfolio.type = self.portfolio_type
+        optimal_portfolio.weights = self.notional * weights / sum(abs(weights))
         
-        #output
-        optimize_vector = optimal_result.x
-        optimize_vector = self.notional * optimize_vector / sum(abs(optimal_result.x))
-         
+        return optimal_portfolio
         
 class output: 
     
@@ -75,7 +74,4 @@ class output:
         self.weights = None
         pass
     
-    
-         
-    def 
-        
+

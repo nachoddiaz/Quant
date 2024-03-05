@@ -27,7 +27,7 @@ universe = ['^SPX','^IXIC','^MXX','^STOXX','^GDAXI','^FCHI','^VIX',\
             'EURUSD=X','GBPUSD=X','CHFUSD=X','SEKUSD=X','NOKUSD=X','JPYUSD=X','MXNUSD=X'\
             ]
     
-rics = random.sample(universe, 5)
+rics = random.sample(universe, 8)
 notional = 15
 
 # rics = ['^MXX','^SPX','XLK','XLF','XLV','XLP','XLY','XLE','XLI']
@@ -68,9 +68,9 @@ optimize_vector = notional * optimize_vector / sum(abs(optimal_result.x))
 
 df_weigths = pd.DataFrame()
 df_weigths['rics'] = rics
-df_weigths['min_var_vector']= min_var_vector
-wei = sum(abs(min_var_vector))
-df_weigths['optimize_vector']= optimize_vector
+df_weigths['l2']= min_var_vector
+df_weigths['l1']= optimize_vector
+df_weigths['default'] = x0
 
 
 
