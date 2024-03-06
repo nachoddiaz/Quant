@@ -45,12 +45,13 @@ prt_mng.compute_covariance()
 port_min_var_L1 = prt_mng.compute_portfolio('min_var_L1')
 port_min_var_L2 = prt_mng.compute_portfolio('min_var_L2')
 port_eq_weigth = prt_mng.compute_portfolio('eq_weigth')
+port_long_only = prt_mng.compute_portfolio('long_only')
 
 pesos = port_min_var_L1.weights
-varianza_portafolio = np.dot(port_min_var_L1.weights.T, \
+varianza_portafolio = np.dot(port_long_only.weights.T, \
                              np.dot(prt_mng.mtx_var_cov, \
-                                    port_min_var_L1.weights))
-retorno_portfolio = prt_mng.compute_return()
+                                    port_long_only.weights))
+retorno_portfolio = prt_mng.returns
 print("Varianza del Portafolio:", varianza_portafolio)
 print("retorno del Portafolio:", retorno_portfolio)
 
