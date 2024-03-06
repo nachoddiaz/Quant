@@ -52,6 +52,9 @@ class manager:
         x0 = [self.notional/ len(self.rics)] * len(self.rics)
         L2_norm = [{"type": "eq", "fun": lambda x: sum(x**2) - 1}] #unitary in norm L2
         L1_norm = [{"type": "eq", "fun": lambda x: sum(abs(x)) - 1}] #unitary in norm L1
+        markowitz = [{'type': 'eq', 'fun': lambda x: self.returns.dot(x) - target_return}]
+        
+        non_negative = [(0, None) for i in range(len(self.rics))]
         
         #compute porfolio depending on the type
         if portfolio_type == 'min_var_L1':
