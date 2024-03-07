@@ -49,10 +49,28 @@ port_eq_weigth = prt_mng.compute_portfolio('eq_weigth')
 port_long_only = prt_mng.compute_portfolio('long_only')
 #A target return is needed in Markowirz,
 # if isnt given, it uses the mean return of the rics
-port_markowitz = prt_mng.compute_portfolio('markowitz', target_return=0.05)
+port_markowitz = prt_mng.compute_portfolio('markowitz', target_return=0.15)
 
 
-print("Varianza del Portafolio:", port_markowitz.return_annual)
-print("retorno del Portafolio:", port_markowitz.volatility_annual)
+print("Return of Portafolio L1 :", port_min_var_L1.return_annual)
+print("Volatility of Portafolio L1:", port_min_var_L1.volatility_annual)
+print("Sharpe Ratio of Portafolio L1:", port_min_var_L1.sharpe_ratio)
+
+print("Return of Portafolio L2:", port_min_var_L2.return_annual)
+print("Volatility of Portafolio L2:", port_min_var_L2.volatility_annual)
+print("Sharpe Ratio of Portafolio L2:", port_min_var_L2.sharpe_ratio)
+
+print("Return of Portafolio equal weigth:", port_eq_weigth.return_annual)
+print("Volatility of Portafolio equal weigth:", port_eq_weigth.volatility_annual)
+print("Sharpe Ratio of Portafolio equal weigth:", port_eq_weigth.sharpe_ratio)
+
+print("Return of Portafolio Long only:", port_long_only.return_annual)
+print("Volatility of Portafolio Long only:", port_long_only.volatility_annual)
+print("Sharpe Ratio of Portafolio L1:", port_long_only.sharpe_ratio)
+
+print("Return of Portafolio Markowitz:", port_markowitz.return_annual)
+print("Volatility of Portafolio Markowitz:", port_markowitz.volatility_annual)
+print("Sharpe Ratio of Portafolio Markowitz:", port_markowitz.sharpe_ratio)
+
 
 
