@@ -560,7 +560,31 @@ The problem is nw to minimise the variance f(x) = x<sup>T</sup> Qx<br> we the fo
 3. r<sub>target</sub> = r<sup>T</sup>x
 
 Both problems, minimum variance portfolio and Markowitz portfolio, are standard
-minimisation problems with restrictions -> we solve them with Lagrange Multipliers
+minimisation problems with restrictions -> we solve them with Lagrange Multipliers<br>
+
+We can implement this through this code:<br>
+First we declare this equality  r<sub>target</sub> = r<sup>T</sup>x
+
+    markowitz = [{'type': 'eq', 'fun': lambda x: self.returns.dot(x) - target_return}]
+
+Secondly, weights cant be negative:
+
+    non_negative = [(0, None) for i in range(len(self.rics))]
+Then, since markowitz porfolio has to fulfill L1 and markowitz constraints, and weights need to be non negative, we define the optimal result as follows:
+
+    optimal_result = op.minimize(fun=portfolio_var, x0=x0,args=(self.mtx_var_cov), constraints=(L1_norm + markowitz), bounds = non_negative))
+    weights = np.array(optimal_result.x)
+
+
+Finally, we need to cover the frontier points so we add epsylon = 10^(-4)
+
+    if target_return == None:
+                target_return = np.mean(self.returns)
+            elif target_return < np.min(self.returns):
+                target_return = np.min(self.returns) + epsylon
+            elif target_return > np.max(self.returns):
+                target_return = np.max(self.returns) - epsylon
+    
 
 ### 8.3 Lagrange Multipliers
 
