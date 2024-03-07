@@ -39,6 +39,7 @@ notional = 2000
 
 prt_mng = porfolios.manager(rics, notional, number_rics)
 prt_mng.compute_covariance()
+output = porfolios.output(rics, notional)
 
 
 #compute desired portfolio
@@ -46,13 +47,12 @@ port_min_var_L1 = prt_mng.compute_portfolio('min_var_L1')
 port_min_var_L2 = prt_mng.compute_portfolio('min_var_L2')
 port_eq_weigth = prt_mng.compute_portfolio('eq_weigth')
 port_long_only = prt_mng.compute_portfolio('long_only')
+#A target return is needed in Markowirz,
+# if isnt given, it uses the mean return of the rics
+port_markowitz = prt_mng.compute_portfolio('markowitz', target_return=0.05)
 
-pesos = port_min_var_L1.weights
-varianza_portafolio = np.dot(port_long_only.weights.T, \
-                             np.dot(prt_mng.mtx_var_cov, \
-                                    port_long_only.weights))
-retorno_portfolio = prt_mng.returns
-print("Varianza del Portafolio:", varianza_portafolio)
-print("retorno del Portafolio:", retorno_portfolio)
+
+print("Varianza del Portafolio:", port_markowitz.return_annual)
+print("retorno del Portafolio:", port_markowitz.volatility_annual)
 
 

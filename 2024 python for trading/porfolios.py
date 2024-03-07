@@ -57,6 +57,7 @@ class manager:
         x0 = [self.notional/ len(self.rics)] * len(self.rics)
         L2_norm = [{"type": "eq", "fun": lambda x: sum(x**2) - 1}] #unitary in norm L2
         L1_norm = [{"type": "eq", "fun": lambda x: sum(abs(x)) - 1}] #unitary in norm L1
+        #diapo 7 https://fractalvelvet.files.wordpress.com/2023/10/optimisation_problems-3.pdf
         markowitz = [{'type': 'eq', 'fun': lambda x: self.returns.dot(x) - target_return}]
         
         non_negative = [(0, None) for i in range(len(self.rics))]
@@ -82,21 +83,31 @@ class manager:
             
         elif portfolio_type == 'markowitz':
             epsylon = 10**-4
-            if
-            elif
-            elif
+            if target_return == None:
+                target_return = np.mean(self.returns)
+            elif target_return < np.min(self.returns):
+                target_return = np.min(self.returns) + epsylon
+            elif target_return > np.max(self.returns):
+                target_return = np.max(self.returns) - epsylon
+            
             optimal_result = op.minimize(fun=portfolio_var, x0=x0,\
                                           args=(self.mtx_var_cov),\
-                                          constraints=(L1_norm + markowitz) \
-                                              )
+                                    #to concatenate l1 and mark lists
+                                          constraints=(L1_norm + markowitz), \
+                                          bounds = non_negative)    
             weights = np.array(optimal_result.x)
 
         else :
             weights = np.array(x0)
-         
+        
+        
         optimal_portfolio = output(self.rics, self.notional)
         optimal_portfolio.type = self.portfolio_type
         optimal_portfolio.weights = self.notional * weights / sum(abs(weights))
+        optimal_portfolio.target_return = target_return
+        optimal_portfolio.return_annual = np.round(self.returns.dot(weights), self.decimals)
+        optimal_portfolio.volatility_annual = np.dot(weights.T, \
+                                                     np.dot(self.mtx_var_cov, weights))
         
         return optimal_portfolio
         
@@ -107,6 +118,11 @@ class output:
         self.notional = notional
         self.type = None
         self.weights = None
+        self.target_return = None
+        self.return_annual = None
+        self.volatility_annual = None
+        self.sharpe_ratio = None
+        
         pass
     
 
