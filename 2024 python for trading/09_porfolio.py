@@ -31,10 +31,17 @@ universe = ['^SPX','^IXIC','^MXX','^STOXX','^GDAXI','^FCHI','^VIX',\
             'BTC-USD','ETH-USD','SOL-USD','USDC-USD','USDT-USD','DAI-USD',\
             'EURUSD=X','GBPUSD=X','CHFUSD=X','SEKUSD=X','NOKUSD=X','JPYUSD=X','MXNUSD=X'\
             ]
+strategies = ['min_var_L1', 'min_var_L2', 'eq_weigth', \
+              'long_only', 'markowitz']
+  
+weights = []
+returns = []
+volatilities = []
+sharpe = []
 
 number_rics = 5
 rics = random.sample(universe, number_rics)
-notional = 2000
+notional = 100
 
 
 prt_mng = porfolios.manager(rics, notional, number_rics)
@@ -51,26 +58,35 @@ port_long_only = prt_mng.compute_portfolio('long_only')
 # if isnt given, it uses the mean return of the rics
 port_markowitz = prt_mng.compute_portfolio('markowitz', target_return=0.15)
 
+returns.append(port_min_var_L1.return_annual)
+returns.append(port_min_var_L2.return_annual)
+returns.append(port_eq_weigth.return_annual)
+returns.append(port_long_only.return_annual)
+returns.append(port_markowitz.return_annual)
 
-print("Return of Portafolio L1 :", port_min_var_L1.return_annual)
-print("Volatility of Portafolio L1:", port_min_var_L1.volatility_annual)
-print("Sharpe Ratio of Portafolio L1:", port_min_var_L1.sharpe_ratio)
+volatilities.append(port_min_var_L1.volatility_annual)
+volatilities.append(port_min_var_L2.volatility_annual)
+volatilities.append(port_eq_weigth.volatility_annual)
+volatilities.append(port_long_only.volatility_annual)
+volatilities.append(port_markowitz.volatility_annual)
 
-print("Return of Portafolio L2:", port_min_var_L2.return_annual)
-print("Volatility of Portafolio L2:", port_min_var_L2.volatility_annual)
-print("Sharpe Ratio of Portafolio L2:", port_min_var_L2.sharpe_ratio)
+sharpe.append(port_min_var_L1.sharpe_ratio)
+sharpe.append(port_min_var_L2.sharpe_ratio)
+sharpe.append(port_eq_weigth.sharpe_ratio)
+sharpe.append(port_long_only.sharpe_ratio)
+sharpe.append(port_markowitz.sharpe_ratio)
 
-print("Return of Portafolio equal weigth:", port_eq_weigth.return_annual)
-print("Volatility of Portafolio equal weigth:", port_eq_weigth.volatility_annual)
-print("Sharpe Ratio of Portafolio equal weigth:", port_eq_weigth.sharpe_ratio)
 
-print("Return of Portafolio Long only:", port_long_only.return_annual)
-print("Volatility of Portafolio Long only:", port_long_only.volatility_annual)
-print("Sharpe Ratio of Portafolio L1:", port_long_only.sharpe_ratio)
-
-print("Return of Portafolio Markowitz:", port_markowitz.return_annual)
-print("Volatility of Portafolio Markowitz:", port_markowitz.volatility_annual)
-print("Sharpe Ratio of Portafolio Markowitz:", port_markowitz.sharpe_ratio)
-
+df_weights = pd.DataFrame()
+df_weights['rics'] = rics
+for strategie in strategies:
+    opt_port = prt_mng.compute_portfolio(portfolio_type=strategie)
+    df_weights[strategie] = opt_port.weights
+    
+df = pd.DataFrame()
+df['strategies'] = strategies
+df['returns'] = returns
+df['volatility'] = volatilities
+df['sharpe ratio'] = sharpe
 
 
