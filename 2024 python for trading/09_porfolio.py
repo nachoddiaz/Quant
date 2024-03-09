@@ -42,7 +42,7 @@ sharpe = []
 
 number_rics = 5
 rics = random.sample(universe, number_rics)
-notional = 100
+notional = 1
 
 
 prt_mng = porfolios.manager(rics, notional, number_rics)

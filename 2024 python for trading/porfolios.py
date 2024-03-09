@@ -61,7 +61,7 @@ class manager:
     
     def compute_portfolio(self, portfolio_type=None, target_return=None): 
         #inputs
-        x0 = [self.notional/ len(self.rics)] * len(self.rics)
+        x0 = [1/ len(self.rics)] * len(self.rics)
         L2_norm = [{"type": "eq", "fun": lambda x: sum(x**2) - 1}] #unitary in norm L2
         L1_norm = [{"type": "eq", "fun": lambda x: sum(abs(x)) - 1}] #unitary in norm L1
         #diapo 7 https://fractalvelvet.files.wordpress.com/2023/10/optimisation_problems-3.pdf
@@ -107,6 +107,7 @@ class manager:
         else :
             portfolio_type = 'equi-weight'
             weights = np.array(x0)
+            print(weights)
         
         
         optimal_portfolio = output(self.rics, self.notional)
