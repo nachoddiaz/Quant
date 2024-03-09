@@ -59,7 +59,6 @@ class distribution_manager:
       
         
     def compute_stats(self, factor = 252):
-        #self.
         self.mean_annual = st.tmean(self.x) * factor
         self.volatility_annual = st.tstd(self.x) * np.sqrt(factor)
         self.sharpe_ratio = self.mean_annual / self.volatility_annual if self.volatility_annual > 0 else 0.0

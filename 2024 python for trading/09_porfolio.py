@@ -13,7 +13,8 @@ import importlib
 import random
 import scipy.optimize as op
 
-
+import market_data
+importlib.reload(market_data)
 import porfolios
 importlib.reload(porfolios)
 import capm
@@ -33,9 +34,8 @@ universe = ['^SPX','^IXIC','^MXX','^STOXX','^GDAXI','^FCHI','^VIX',\
             ]
 strategies_str = ['min_var_L1', 'min_var_L2', 'eq_weigth', \
               'long_only', 'markowitz']
+    
 
-  
-weights = []
 returns = []
 volatilities = []
 sharpe = []
@@ -47,7 +47,7 @@ notional = 100
 
 prt_mng = porfolios.manager(rics, notional, number_rics)
 prt_mng.compute_covariance()
-output = porfolios.output(rics, notional)
+out = porfolios.output(rics, notional)
 
 
 #compute desired portfolio
@@ -59,38 +59,22 @@ port_long_only = prt_mng.compute_portfolio('long_only')
 # if isnt given, it uses the mean return of the rics
 port_markowitz = prt_mng.compute_portfolio('markowitz', target_return=0.15)
 
-strategies = [port_min_var_L1, port_min_var_L2, port_eq_weigth, \
-              port_long_only, port_markowitz]
-
-for portafolio in strategies:
-    returns.append(portafolio.return_annual)
-    volatilities.append(portafolio.volatility_annual)
-    sharpe.append(portafolio.sharpe_ratio)
-
-# returns.append(port_min_var_L1.return_annual)
-# returns.append(port_min_var_L2.return_annual)
-# returns.append(port_eq_weigth.return_annual)
-# returns.append(port_long_only.return_annual)
-# returns.append(port_markowitz.return_annual)
-
-# volatilities.append(port_min_var_L1.volatility_annual)
-# volatilities.append(port_min_var_L2.volatility_annual)
-# volatilities.append(port_eq_weigth.volatility_annual)
-# volatilities.append(port_long_only.volatility_annual)
-# volatilities.append(port_markowitz.volatility_annual)
-
-# sharpe.append(port_min_var_L1.sharpe_ratio)
-# sharpe.append(port_min_var_L2.sharpe_ratio)
-# sharpe.append(port_eq_weigth.sharpe_ratio)
-# sharpe.append(port_long_only.sharpe_ratio)
-# sharpe.append(port_markowitz.sharpe_ratio)
-
-
+#DataFrame to compare weights of rics in different strategies
 df_weights = pd.DataFrame()
 df_weights['rics'] = rics
 for strategie in strategies_str:
     opt_port = prt_mng.compute_portfolio(portfolio_type=strategie)
     df_weights[strategie] = opt_port.weights
+    
+strategies = [port_min_var_L1, port_min_var_L2, port_eq_weigth, \
+              port_long_only, port_markowitz]
+
+#DataFrame to compare reults of different strategies
+for portafolio in strategies:
+    returns.append(portafolio.return_annual)
+    volatilities.append(portafolio.volatility_annual)
+    sharpe.append(portafolio.sharpe_ratio)
+    
     
 df = pd.DataFrame()
 df['strategies'] = strategies_str
@@ -99,3 +83,9 @@ df['volatility'] = volatilities
 df['sharpe ratio'] = sharpe
 
 
+
+port_min_var_L1.plot_histogram()
+port_min_var_L2.plot_histogram()
+port_eq_weigth.plot_histogram()
+port_long_only.plot_histogram()
+port_markowitz.plot_histogram()
