@@ -40,14 +40,15 @@ returns = []
 volatilities = []
 sharpe = []
 
-number_rics = 5
+number_rics = 30
 rics = random.sample(universe, number_rics)
 notional = 1
 
 
+
+
 prt_mng = porfolios.manager(rics, notional, number_rics)
 prt_mng.compute_covariance()
-out = porfolios.output(rics, notional)
 
 
 #compute desired portfolio
@@ -57,7 +58,7 @@ port_eq_weigth = prt_mng.compute_portfolio('eq_weigth')
 port_long_only = prt_mng.compute_portfolio('long_only')
 #A target return is needed in Markowirz,
 # if isnt given, it uses the mean return of the rics
-port_markowitz = prt_mng.compute_portfolio('markowitz', target_return=0.15)
+port_markowitz = prt_mng.compute_portfolio('markowitz', target_return=None)
 
 #DataFrame to compare weights of rics in different strategies
 df_weights = pd.DataFrame()

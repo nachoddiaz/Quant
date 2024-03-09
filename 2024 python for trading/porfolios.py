@@ -105,9 +105,8 @@ class manager:
             weights = np.array(optimal_result.x)
 
         else :
-            portfolio_type = 'equi-weight'
+            portfolio_type = 'equi_weight'
             weights = np.array(x0)
-            print(weights)
         
         
         optimal_portfolio = output(self.rics, self.notional)
@@ -200,6 +199,91 @@ class output:
         plt.hist(self.x, bins=100) #density=True
         plt.title(self.str_title)
         plt.show()
+        
+        
+def compute_eff_front(rics, notional, number_rics, target_return, include_min_var):
+    #special-portfolios
+    label1 = 'min_var_L1'
+    label2 = 'min_var_L2'
+    label3 = 'equi_weight'
+    label4 = 'long_only'
+    label5 = 'markowitz-none'
+    label6 = 'markowitz-target'
+    
+    #cov_mtx
+    prt_mng= manager(rics, notional, number_rics)
+    prt_mng.compute_covariance()
+    
+    #compute vectors of returns and volatilities por Markowitz portfolios
+    min_returns = np.min(prt_mng.returns)
+    max_returns = np.max(prt_mng.returns)
+    returns = min_returns + np.linspace(0.05, 0.95,100) * (max_returns- min_returns)
+    volatilities = np.zeros([len(returns), 1])
+    i = 0
+    for ret in returns:
+        port_markowitz = prt_mng.compute_portfolio('markowitz', ret)
+        volatilities[i] = port_markowitz.volatility_annual
+        i += 1
+        
+    #Computing special portfolios
+    port1 = prt_mng.compute_portfolio(label1)
+    port2 = prt_mng.compute_portfolio(label2)
+    port3 = prt_mng.compute_portfolio(label3)
+    port4 = prt_mng.compute_portfolio(label4)
+    port5 = prt_mng.compute_portfolio('markowitz')
+    port6 = prt_mng.compute_portfolio('markowitz', target_return)
+    
+    
+    #create scatterplots of special porfolios
+    x1 = port1.volatility_annual
+    y1 = port1.return_annual
+    x2 = port2.volatility_annual
+    y2 = port2.return_annual
+    x3 = port3.volatility_annual
+    y3 = port3.return_annual
+    x4 = port4.volatility_annual
+    y4 = port4.return_annual
+    x5 = port5.volatility_annual
+    y5 = port5.return_annual
+    x6 = port6.volatility_annual
+    y6 = port6.return_annual
+
+    
+    #plot Efficient Frontier
+    plt.figure()
+    plt.title('Efficient Frontier for a portfolio including ' + rics[0])
+    plt.scatter(volatilities,returns)
+    if include_min_var:
+        plt.plot(x1, y1,"oy", label = label1)
+        plt.plot(x2, y2,"or", label = label2)
+    plt.plot(x3, y3, "^y", label=label3) # yellow triangle
+    plt.plot(x4, y4, "^r", label=label4) # red triangle
+    plt.plot(x5, y5, "sy", label=label5) # yellow square
+    plt.plot(x6, y6, "sr", label=label6) # red square
+    plt.ylabel('portfolio return')
+    plt.xlabel('portfolio volatility')
+    plt.grid()
+    if include_min_var:
+        plt.legend(loc='best')
+    else:
+        plt.legend(loc='lower right',  borderaxespad=0.)
+    plt.show()
+    
+    dict_portfolios = {label1: port1,
+                       label2: port2,
+                       label3: port3,
+                       label4: port4,
+                       label5: port5,
+                       label6: port6}
+    
+    return dict_portfolios
+    
+    
+    
+    
+    
+    
+    
 
     
 
