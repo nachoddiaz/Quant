@@ -41,6 +41,6 @@ print(rics)
 
 
 #efficient frontier
-target_return = None
+target_return = 0.075
 include_min_var = True
 portfolio_dic = porfolios.compute_eff_front(rics, notional, number_rics, target_return, include_min_var)

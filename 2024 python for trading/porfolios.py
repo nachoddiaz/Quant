@@ -115,8 +115,8 @@ class manager:
         optimal_portfolio.allocation = self.notional * optimal_portfolio.weights
         optimal_portfolio.target_return = target_return
         optimal_portfolio.return_annual = np.round(self.returns.dot(weights), self.decimals)
-        optimal_portfolio.volatility_annual = np.dot(weights.T, \
-                                                     np.dot(self.mtx_var_cov, weights))
+        optimal_portfolio.volatility_annual = np.round(np.sqrt(portfolio_var(weights, \
+                                                    self.mtx_var_cov)), self.decimals)
         optimal_portfolio.sharpe_ratio = \
             optimal_portfolio.return_annual /  optimal_portfolio.volatility_annual \
             if optimal_portfolio.volatility_annual > 0 else 0.0

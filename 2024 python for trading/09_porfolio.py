@@ -58,7 +58,7 @@ port_eq_weigth = prt_mng.compute_portfolio('eq_weigth')
 port_long_only = prt_mng.compute_portfolio('long_only')
 #A target return is needed in Markowirz,
 # if isnt given, it uses the mean return of the rics
-port_markowitz = prt_mng.compute_portfolio('markowitz', target_return=None)
+port_markowitz = prt_mng.compute_portfolio('markowitz', target_return=0.075)
 
 #DataFrame to compare weights of rics in different strategies
 df_weights = pd.DataFrame()
