@@ -35,12 +35,14 @@ universe = ['^SPX','^IXIC','^MXX','^STOXX','^GDAXI','^FCHI','^VIX',\
 
 number_rics =10
 #rics = random.sample(universe, number_rics)
-rics = ['XLC', 'XLU','QUAL','BTC-USD','XLY','NOKUSD=X' ,'XLB' ,'^GDAXI','GOOG','CHFUSD=X']
-notional = 1
+rics = universe
+notional = 2000
 print(rics)
 
 
 #efficient frontier
-target_return = 0.075
-include_min_var = True
+target_return = None
+include_min_var = False
 portfolio_dic = porfolios.compute_eff_front(rics, notional, number_rics, target_return, include_min_var)
+
+portfolio_dic['markowitz-target'].plot_histogram()
