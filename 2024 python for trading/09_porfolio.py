@@ -84,7 +84,6 @@ df['volatility'] = volatilities
 df['sharpe ratio'] = sharpe
 
 
-
 port_min_var_L1.plot_histogram()
 port_min_var_L2.plot_histogram()
 port_eq_weigth.plot_histogram()
