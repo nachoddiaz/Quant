@@ -30,8 +30,11 @@ inputs.interest_rate = 0.0453
 inputs.volatility = 0.5556
 inputs.type = 'call'
 
-
 option_mng = options.manager(inputs)
 
 option_mng.compute_black_scholes_price()
-#option_mng.compute_montecarlo_price()
+option_mng.compute_montecarlo_price()
+option_mng.plot_histogram()
+
+BSPrice = option_mng.black_scholes_price
+MCPrice = option_mng.montecarlo_price

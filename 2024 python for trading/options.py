@@ -42,7 +42,9 @@ class manager:
         self.type = inputs.type
         self.black_scholes_price = None
         self.montecarlo_price = None
-        self.montecarlo_confidence_interval = 95
+        self.montecarlo_confidence_interval = None
+        self.montecarlo_size = None
+        
         
         
     def compute_black_scholes_price(self):
@@ -52,23 +54,35 @@ class manager:
         
         d2 = d1 - self.volatility * self.time_to_maturity
         if self.type == 'call':
-            price = self.price * st.norm.cdf(d1) - \
+            price_option = self.price * st.norm.cdf(d1) - \
             st.norm.cdf(d2) * self.strike * np.exp(-self.interest_rate*self.time_to_maturity)
         
         elif self.type == 'put':
-            price = st.norm.cdf(-d2) * self.strike * np.exp(-self.interest_rate*self.time_to_maturity)\
+            price_option = st.norm.cdf(-d2) * self.strike * np.exp(-self.interest_rate*self.time_to_maturity)\
             - self.price * st.norm.cdf(-d1)
             
-        self.black_scholes_price = price
+        self.black_scholes_price = price_option
         
         
-    def compute_montecarlo_price(self):
-        self.montecarlo_price = self.price*\
+    def compute_montecarlo_price(self, montecarlo_size = 10**6):
+        self.montecarlo_size = montecarlo_size
+        N = np.random.standard_normal(self.montecarlo_size)
+        underlying_price = self.price*\
             np.exp((self.interest_rate-0.5*self.volatility**2)*self.time_to_maturity+\
-                   self.volatility*)
+                   self.volatility* np.sqrt(self.time_to_maturity) * N)
+                
+        self.montecarlo_simulations = np.exp(-(self.interest_rate * self.time_to_maturity)) \
+            * np.array([max(s - self.strike, 0.0) for s in underlying_price])        
+        self.montecarlo_price = np.mean(self.montecarlo_simulations)
+        self.montecarlo_confidence_interval = self.montecarlo_price + np.array([-1.0, 1.0]) \
+            * 1.96 * np.std(self.montecarlo_simulations) / np.sqrt(self.montecarlo_size)
         
-        
-        
+    def plot_histogram(self):
+        plt.figure()
+        x = self.montecarlo_simulations
+        plt.hist(x,bins=100)
+        plt.title('Monte Carlo simulations | ' + self.type)
+        plt.show()
         
         
         
