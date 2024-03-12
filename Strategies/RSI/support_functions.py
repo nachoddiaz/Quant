@@ -14,12 +14,17 @@ import pandas_ta as ta
   
 class manager:
     
-    def __init__(self,symbol):
+    def __init__(self,symbol,days):
         self.df_done = None
         self.apds_done = None
         self.symbol = symbol
+        self.days = days
         self.ohlcv = None
         self.df_symbols = None
+        self.df_position = None
+        self.returns = None
+        self.purchases = 0
+        self.sales = 0
         
     
     def rsi_strategy(self):
@@ -31,7 +36,7 @@ class manager:
 
         if self.symbol in self.df_symbols:
              # Get symbol price
-             self.ohlcv = exchange.fetch_ohlcv(self.symbol, '1d',  limit=250)
+             self.ohlcv = exchange.fetch_ohlcv(self.symbol, '1d', limit=self.days)
         else: print('symbol doesnt exists')
         
         
@@ -96,8 +101,33 @@ class manager:
                  figratio=(12, 8),
                  mav=(10, 20),
                  yscale='log')
+        
+        
+    def implement_strategie(self):
+        self.df_position = self.df_done[['close','crossing_up_70_data']]
+        self.df_position = self.df_position.dropna()
+        self.df_position2 = self.df_done[['close','crossing_down_30_data']]
+        self.df_position2 = self.df_position2.dropna()
+        self.df_position= pd.concat([self.df_position, self.df_position2], axis=0)
+        
+        self.diff_nan = self.df_position['crossing_up_70_data'].isna().sum() -\
+            self.df_position['crossing_down_30_data'].isna().sum()
+            
+        #To make the same number of purchases and sales
+        if self.diff_nan != 0:
+            # Encuentra índices donde Columna2 es NaN
+            self.nan_index = self.df_position[self.df_position['crossing_down_30_data'].isna()].index
+            indices_to_remove = self.nan_index[:abs(self.diff_nan)]
+            self.df_position = self.df_position.drop(indices_to_remove)
+            
+        for i in range(len(self.df_position)):
+            #If the crossing_down_30_data column is empty, it means that they
+            # are crossing_up_70_data values ​​and vice versa
+            if pd.isna(self.df_position['crossing_down_30_data'].iloc[i]):
+                self.sales += self.df_position['close'].iloc[i]
+            elif pd.isna(self.df_position['crossing_up_70_data'].iloc[i]):
+                self.purchases += self.df_position['close'].iloc[i]
     
-    
-    
+        self.returns = self.sales - self.purchases
 
         
