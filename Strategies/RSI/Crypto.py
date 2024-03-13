@@ -13,8 +13,8 @@ import importlib
 import support_functions
 importlib.reload(support_functions)
 
-symbol = 'BTC/EUR'
-days = 700
+symbol = 'ETH/EUR'
+days = 800
 
 manager = support_functions.manager(symbol, days)
 manager.rsi_strategy()
