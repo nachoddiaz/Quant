@@ -104,35 +104,48 @@ class manager:
         
         
     def implement_strategie(self):
+        
+        self.purchases = pd.DataFrame(columns=['price'])
+        self.sales = pd.DataFrame(columns=['price'])
         self.df_position = self.df_done[['close','crossing_up_70_data']]
         self.df_position = self.df_position.dropna()
         self.df_position2 = self.df_done[['close','crossing_down_30_data']]
         self.df_position2 = self.df_position2.dropna()
         self.df_position= pd.concat([self.df_position, self.df_position2], axis=0)
+        self.df_position = self.df_position.sort_values('timestamp')
+        self.df_position = self.df_position.reset_index()
+
         
         for i in range(len(self.df_position)):
             #If the crossing_down_30_data column is empty, it means that they
             # are crossing_up_70_data values ​​and vice versa
             if pd.isna(self.df_position['crossing_down_30_data'].iloc[i]):
-                self.sales.append(self.df_position['close'].iloc[i])
+                self.sales.loc[i, 'date'] = self.df_position.iloc[i]['timestamp']
+                self.sales.loc[i,'price'] = self.df_position.iloc[i]['close']
             elif pd.isna(self.df_position['crossing_up_70_data'].iloc[i]):
-                self.purchases.append(self.df_position['close'].iloc[i])
+                self.purchases.loc[i, 'date'] = self.df_position.iloc[i]['timestamp']
+                self.purchases.loc[i,'price'] = self.df_position.iloc[i]['close']
         
         self.diff_nan = len(self.sales) - len(self.purchases)
             
-        # #To make the same number of purchases and sales using FIFO
-        if self.diff_nan <= 0:
-            self.purchases = self.purchases[:self.diff_nan]
-        else:
-            self.sales = self.sales[:-self.diff_nan]
+        # # #To make the same number of purchases and sales using FIFO
+        # if self.diff_nan <= 0:
+        #     self.purchases = self.purchases[:self.diff_nan]
+        # else:
+        #     self.sales = self.sales[:-self.diff_nan]
+            
+            
+        
             
     def compute_stats(self, Operational_days):
+        
+        #first_day = 
            
         #Relative Return
-        self.returns = [(v - c) / c for c, v in zip(self.purchases, self.sales)]
-        self.returns = sum(self.returns)
+        self.returns = [(v - c) for c, v in zip(self.purchases['price'], self.sales['price'])]
+        # self.returns = sum(self.returns)
         
         #Absolut Return
-        self.returns_abs_2 = sum(self.sales) - sum(self.purchases)
+        self.abs_return = sum(self.sales['price']) - sum(self.purchases['price'])
 
         
