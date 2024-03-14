@@ -23,8 +23,8 @@ class manager:
         self.df_symbols = None
         self.df_position = None
         self.returns = None
-        self.purchases = 0
-        self.sales = 0
+        self.purchases = []
+        self.sales = []
         
     
     def rsi_strategy(self):
@@ -110,24 +110,29 @@ class manager:
         self.df_position2 = self.df_position2.dropna()
         self.df_position= pd.concat([self.df_position, self.df_position2], axis=0)
         
-        self.diff_nan = self.df_position['crossing_up_70_data'].isna().sum() -\
-            self.df_position['crossing_down_30_data'].isna().sum()
-            
-        #To make the same number of purchases and sales
-        if self.diff_nan != 0:
-            # Encuentra índices donde Columna2 es NaN
-            self.nan_index = self.df_position[self.df_position['crossing_down_30_data'].isna()].index
-            indices_to_remove = self.nan_index[:abs(self.diff_nan)]
-            self.df_position = self.df_position.drop(indices_to_remove)
-            
         for i in range(len(self.df_position)):
             #If the crossing_down_30_data column is empty, it means that they
             # are crossing_up_70_data values ​​and vice versa
             if pd.isna(self.df_position['crossing_down_30_data'].iloc[i]):
-                self.sales += self.df_position['close'].iloc[i]
+                self.sales.append(self.df_position['close'].iloc[i])
             elif pd.isna(self.df_position['crossing_up_70_data'].iloc[i]):
-                self.purchases += self.df_position['close'].iloc[i]
-    
-        self.returns = self.sales - self.purchases
+                self.purchases.append(self.df_position['close'].iloc[i])
+        
+        self.diff_nan = len(self.sales) - len(self.purchases)
+            
+        # #To make the same number of purchases and sales using FIFO
+        if self.diff_nan <= 0:
+            self.purchases = self.purchases[:self.diff_nan]
+        else:
+            self.sales = self.sales[:-self.diff_nan]
+            
+    def compute_stats(self, Operational_days):
+           
+        #Relative Return
+        self.returns = [(v - c) / c for c, v in zip(self.purchases, self.sales)]
+        self.returns = sum(self.returns)
+        
+        #Absolut Return
+        self.returns_abs_2 = sum(self.sales) - sum(self.purchases)
 
         

@@ -15,6 +15,7 @@ importlib.reload(support_functions)
 
 symbol = 'ETH/EUR'
 days = 800
+operational_days = 252
 
 manager = support_functions.manager(symbol, days)
 manager.rsi_strategy()
@@ -22,7 +23,7 @@ manager.plot_strategie()
 
 manager.implement_strategie()
 
-#DataFrame for the price data
+manager.compute_stats(operational_days)
 returns = manager.returns
 
 print('The return for this RSI strategy is: '+ str(returns))
