@@ -105,8 +105,8 @@ class manager:
         
     def implement_strategie(self):
         
-        self.purchases = pd.DataFrame(columns=['price'])
-        self.sales = pd.DataFrame(columns=['price'])
+        self.purchases = pd.DataFrame(columns=['date'])
+        self.sales = pd.DataFrame(columns=['date'])
         self.df_position = self.df_done[['close','crossing_up_70_data']]
         self.df_position = self.df_position.dropna()
         self.df_position2 = self.df_done[['close','crossing_down_30_data']]
@@ -126,24 +126,34 @@ class manager:
                 self.purchases.loc[i, 'date'] = self.df_position.iloc[i]['timestamp']
                 self.purchases.loc[i,'price'] = self.df_position.iloc[i]['close']
         
-        self.diff_nan = len(self.sales) - len(self.purchases)
+        self.purchases.reset_index(drop=True)
+        self.sales.reset_index(drop=True)
             
-        # # #To make the same number of purchases and sales using FIFO
-        # if self.diff_nan <= 0:
-        #     self.purchases = self.purchases[:self.diff_nan]
-        # else:
-        #     self.sales = self.sales[:-self.diff_nan]
-            
-            
+        self.info = pd.DataFrame()
+           
+        #Relative Return
+        self.returns = [(v - c) for c, v in zip(self.purchases['price'], self.sales['price'])]
+        self.return_times = [(v - c)for c, v in zip(self.purchases['date'], self.sales['date'])]
+        
+        self.info['purchases'] = self.purchases['price']
+        self.info['sales'] = self.sales['price']
+        self.info['returns'] = self.returns
+        self.info['return_times'] = self.return_times
         
             
     def compute_stats(self, Operational_days):
         
-        #first_day = 
-           
-        #Relative Return
-        self.returns = [(v - c) for c, v in zip(self.purchases['price'], self.sales['price'])]
-        # self.returns = sum(self.returns)
+       
+        
+        # for i in self.info:
+        #     if self.info['return_time'] < 0:
+        #         self.returns = 
+        #     else:
+        #         self.returns = self.returns[i] / 
+        # self.return_times = [abs(elemento) for elemento in self.return_times]
+        
+        # self.return_diario = 
+        # # self.returns = sum(self.returns)
         
         #Absolut Return
         self.abs_return = sum(self.sales['price']) - sum(self.purchases['price'])
