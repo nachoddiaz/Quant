@@ -24,9 +24,14 @@ manager.plot_strategie()
 manager.implement_strategie()
 
 manager.compute_stats(operational_days)
-returns = manager.returns
+annualized_return = manager.annualized_return
+volatility_annual = manager.volatility_annual
 
-print('The return for this RSI strategy is: '+ str(returns))
+print(manager.ticker['first'])
+print(manager.ticker['last'])
+
+print('The return for this RSI strategy is: '+ str(annualized_return) + ' %')
+print('The volatility for this RSI strategy is: '+ str(volatility_annual))
 
 
 

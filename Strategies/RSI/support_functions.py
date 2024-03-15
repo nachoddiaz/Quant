@@ -9,6 +9,8 @@ import pandas as pd
 import ccxt
 import mplfinance as mpf
 import pandas_ta as ta
+import numpy as np
+import scipy.stats  as st 
   
         
   
@@ -25,7 +27,7 @@ class manager:
         self.returns = None
         self.purchases = []
         self.sales = []
-        
+        self.daily_return = None
     
     def rsi_strategy(self):
         exchange = ccxt.binance()
@@ -39,7 +41,7 @@ class manager:
              self.ohlcv = exchange.fetch_ohlcv(self.symbol, '1d', limit=self.days)
         else: print('symbol doesnt exists')
         
-        
+        self.ticker = exchange.fetch_ticker(self.symbol)
         df = pd.DataFrame(self.ohlcv, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
         df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
         df.set_index('timestamp', inplace=True)
@@ -126,8 +128,8 @@ class manager:
                 self.purchases.loc[i, 'date'] = self.df_position.iloc[i]['timestamp']
                 self.purchases.loc[i,'price'] = self.df_position.iloc[i]['close']
         
-        self.purchases.reset_index(drop=True)
-        self.sales.reset_index(drop=True)
+        self.purchases = self.purchases.reset_index(drop=True)
+        self.sales = self.sales.reset_index(drop=True)
             
         self.info = pd.DataFrame()
            
@@ -140,22 +142,43 @@ class manager:
         self.info['returns'] = self.returns
         self.info['return_times'] = self.return_times
         
+        self.return_times = self.info['return_times'].abs()
+        
+        for value in self.info['return_times']:
+             if value < pd.Timedelta(0):
+                 self.info['returns'] = self.info['returns']/self.info['sales']
+                 break
+             else:
+                 self.info['returns'] = self.info['returns'] / self.info['purchases']
+                 break
+               
+        self.days2 = self.info['return_times'].dt.days
+        self.days2 = self.days2.abs()
+        #daily return of each operation
+        for returns in self.info['returns']:
+            self.daily_return = (1 + returns) ** (1 / self.days2) - 1
             
     def compute_stats(self, Operational_days):
+        self.mean = np.prod(1 + self.daily_return) **\
+            (1 / len(self.daily_return)) - 1
+        self.annualized_return = (1 + self.mean) ** Operational_days - 1
+        self.volatility = np.std(self.daily_return, ddof=1)
+        self.volatility_annual = self.volatility * np.sqrt(Operational_days)
+        
+        
+        self.var_95 = np.percentile(self.daily_return, 5)
+        self.skewness = st.skew(self.daily_return)
+        self.kurt = st.kurtosis(self.daily_return)
+        self.jb_stat= (Operational_days/6)*(self.skewness**2 + 1/4*self.kurt**2)
+        self.p_value = 1- st.chi2.cdf(self.jb_stat, df=2)
+        self.is_normal = (self.p_value > 0.05)
         
        
         
-        # for i in self.info:
-        #     if self.info['return_time'] < 0:
-        #         self.returns = 
-        #     else:
-        #         self.returns = self.returns[i] / 
-        # self.return_times = [abs(elemento) for elemento in self.return_times]
-        
-        # self.return_diario = 
-        # # self.returns = sum(self.returns)
+        #self.return_diario = 
+        # self.returns = sum(self.returns)
         
         #Absolut Return
-        self.abs_return = sum(self.sales['price']) - sum(self.purchases['price'])
+        #self.abs_return = sum(self.sales['price']) - sum(self.purchases['price'])
 
         
