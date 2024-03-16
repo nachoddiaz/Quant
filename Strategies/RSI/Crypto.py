@@ -13,27 +13,44 @@ import importlib
 import support_functions
 importlib.reload(support_functions)
 
+import RSI_FIFO
+importlib.reload(RSI_FIFO)
+
+import RSI_LIFO
+importlib.reload(RSI_LIFO) 
+
 symbol = 'ADA/EUR'
 days = 800
-operational_days = 252
+operational_days = 365
 interval = '1d'
 
-manager = support_functions.manager(symbol, days, interval)
-manager.rsi_strategy()
-manager.plot_strategie()
+datos_preparados = support_functions.manager(symbol, days, interval)
 
-manager.implement_strategie()
+datos_preparados = datos_preparados.prepare_data()
 
-manager.compute_stats(operational_days)
-annualized_return = manager.annualized_return
-volatility_annual = manager.volatility_annual
+rsi_fifo = RSI_FIFO.manager(datos_preparados, symbol)
+rsi_lifo = RSI_LIFO.manager(datos_preparados, symbol)
 
-#print(manager.ticker['first'])
-print(manager.ticker['last'])
+rsi_fifo.rsi_strategy()
+rsi_fifo.plot_strategie()
+rsi_fifo.implement_strategie()
+rsi_fifo.compute_stats(operational_days)
 
-print('The mean daily return for this RSI strategy is: '+ str(manager.mean) + ' %')
-print('The annualized return for this RSI strategy is: '+ str(annualized_return) + ' %')
-print('The volatility for this RSI strategy is: '+ str(volatility_annual) + ' %')
+
+rsi_lifo.rsi_strategy()
+rsi_lifo.plot_strategie()
+rsi_lifo.implement_strategie()
+rsi_lifo.compute_stats(operational_days)
+
+
+
+
+annualized_return = rsi_fifo.annualized_return
+volatility_annual = rsi_fifo.volatility_annual
+
+print('The mean daily return for a FIFO RSI strategy is: '+ str(rsi_fifo.mean) + ' %')
+print('The annualized return for this FIFO RSI strategy is: '+ str(annualized_return) + ' %')
+print('The volatility for this FIFO RSI strategy is: '+ str(volatility_annual) + ' %')
 
 
 
