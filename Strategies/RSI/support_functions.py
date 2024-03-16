@@ -16,11 +16,12 @@ import scipy.stats  as st
   
 class manager:
     
-    def __init__(self,symbol,days):
+    def __init__(self,symbol,days, interval):
         self.df_done = None
         self.apds_done = None
         self.symbol = symbol
         self.days = days
+        self.interval = interval
         self.ohlcv = None
         self.df_symbols = None
         self.df_position = None
@@ -38,7 +39,7 @@ class manager:
 
         if self.symbol in self.df_symbols:
              # Get symbol price
-             self.ohlcv = exchange.fetch_ohlcv(self.symbol, '1d', limit=self.days)
+             self.ohlcv = exchange.fetch_ohlcv(self.symbol, self.interval, limit=self.days)
         else: print('symbol doesnt exists')
         
         self.ticker = exchange.fetch_ticker(self.symbol)
@@ -109,7 +110,7 @@ class manager:
         
         self.purchases = pd.DataFrame(columns=['date'])
         self.sales = pd.DataFrame(columns=['date'])
-        self.df_position = self.df_done[['close','crossing_up_70_data']]
+        self.df_position = self.df_done[['close','crossing_down_70_data']]
         self.df_position = self.df_position.dropna()
         self.df_position2 = self.df_done[['close','crossing_down_30_data']]
         self.df_position2 = self.df_position2.dropna()
@@ -124,7 +125,7 @@ class manager:
             if pd.isna(self.df_position['crossing_down_30_data'].iloc[i]):
                 self.sales.loc[i, 'date'] = self.df_position.iloc[i]['timestamp']
                 self.sales.loc[i,'price'] = self.df_position.iloc[i]['close']
-            elif pd.isna(self.df_position['crossing_up_70_data'].iloc[i]):
+            elif pd.isna(self.df_position['crossing_down_70_data'].iloc[i]):
                 self.purchases.loc[i, 'date'] = self.df_position.iloc[i]['timestamp']
                 self.purchases.loc[i,'price'] = self.df_position.iloc[i]['close']
         
