@@ -37,8 +37,8 @@ def GeneratePathsGBMABM(NPaths, NSteps, T, r, sigma, S_0):
 
 
 def Example():
-    NPaths = 5000
-    NSteps = 500
+    NPaths = 10
+    NSteps = 5000
     T = 1
     r = 0.05
     sigma = 0.4
