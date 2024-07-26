@@ -37,8 +37,8 @@ def GeneratePathsGBMABM(NPaths, NSteps, T, r, sigma, S_0):
 
 
 def Example():
-    NPaths = 10
-    NSteps = 5000
+    NPaths = 200
+    NSteps = 50
     T = 1
     r = 0.05
     sigma = 0.4
@@ -53,15 +53,15 @@ def Example():
     X = paths["X"]
     S = paths["S"]
     
-    plt.figure(1)
-    plt.plot(timeGrid, np.transpose(X))
-    plt.grid()
-    plt.xlabel("time")
-    plt.ylabel("X(t)")
+    # plt.figure(1)
+    # plt.plot(timeGrid, np.transpose(X), linewidth=0.4)
+    # plt.grid()
+    # plt.xlabel("time")
+    # plt.ylabel("X(t)")
     
     
     plt.figure(2)
-    plt.plot(timeGrid, np.transpose(S))
+    plt.plot(timeGrid, np.transpose(S), linewidth=0.5)
     plt.grid()
     plt.xlabel("time")
     plt.ylabel("S(t)")
