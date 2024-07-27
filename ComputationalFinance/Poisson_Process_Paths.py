@@ -60,6 +60,10 @@ def Example():
     ES = np.mean(Xc[:,-1])
     print(ES)
     
+    plt.figure(3)
+    plt.hist(Xc[:,-1])
+    plt.grid()
+   
     
     
 Example()

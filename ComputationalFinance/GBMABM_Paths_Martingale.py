@@ -37,7 +37,7 @@ def GeneratePathsGBMABM(NPaths, NSteps, T, r, sigma, S_0):
 
 
 def Example():
-    NPaths = 200
+    NPaths = 2000
     NSteps = 50
     T = 1
     r = 0.05
@@ -53,11 +53,11 @@ def Example():
     X = paths["X"]
     S = paths["S"]
     
-    # plt.figure(1)
-    # plt.plot(timeGrid, np.transpose(X), linewidth=0.4)
-    # plt.grid()
-    # plt.xlabel("time")
-    # plt.ylabel("X(t)")
+    plt.figure(1)
+    plt.plot(timeGrid, np.transpose(X), linewidth=0.4)
+    plt.grid()
+    plt.xlabel("time")
+    plt.ylabel("X(t)")
     
     
     plt.figure(2)
@@ -65,6 +65,15 @@ def Example():
     plt.grid()
     plt.xlabel("time")
     plt.ylabel("S(t)")
+    
+    plt.figure(3)
+    plt.hist(X[:,-1], bins=50)
+    plt.grid()
+    
+    
+    plt.figure(4)
+    plt.hist(S[:,-1],  bins=50,)
+    plt.grid()
     
     #check martingale property II, haya la media de la última columna
     #Media de los retornos
