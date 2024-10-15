@@ -1,4 +1,4 @@
-# Summary of all my qaunt related projects
+# Summary of all my quant related projects
 
 ## Introduction to Quant Finances with python
   ### 1. Review of Distributions and their moments
